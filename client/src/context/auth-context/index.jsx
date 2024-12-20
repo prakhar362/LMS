@@ -13,6 +13,7 @@ export default function AuthProvider({children})
         authenticate: false,
         user: null,
       });
+    const [loading, setLoading] = useState(true);
     async function handleRegisterUser(){
         event.preventDefault();
         const data=await registerService(signUpFormData);
@@ -28,7 +29,7 @@ export default function AuthProvider({children})
             sessionStorage.setItem('accessToken',JSON.stringify(data.data.accessToken));
             setAuth({
                 authenticate:true,
-                user: data.user
+                user: data.data.user
             })
         }
         else{
@@ -77,5 +78,6 @@ export default function AuthProvider({children})
         signUpFormData,
         handleRegisterUser,
         handleLoginUser,
+        auth
     }}>{children}</AuthContext.Provider>
 }

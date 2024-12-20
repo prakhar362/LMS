@@ -2,7 +2,7 @@ import FormControls from "./form-controls";
 import { Button } from "../ui/button";
 function CommonForm({
     handleSubmit,
-    ButtonText,
+    buttonText,
     formControls = [],
     formData, 
     setFormData,
@@ -13,7 +13,7 @@ function CommonForm({
         <form onSubmit={handleSubmit}>
             {/**render form controls here */}
             <FormControls formControls={formControls} formData={formData}  setFormData={setFormData} />
-            <Button disabled={isButtonDisabled} type="submit">{ButtonText || 'Submit'}</Button>
+            <Button disabled={isButtonDisabled} type="submit" className="mt-5 w-full" >{buttonText || 'Submit'}</Button>
         </form>
 
     );
