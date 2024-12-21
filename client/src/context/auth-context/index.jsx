@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { useState } from "react";
+import { useState,useEffect} from "react";
 import { initialSignInFormData, initialSignUpFormData } from "@/config";
 
 import { registerService,loginService } from "@/services";
@@ -71,6 +71,20 @@ export default function AuthProvider({children})
         }
       }
 
+      
+      function resetCredentials() {
+        setAuth({
+          authenticate: false,
+          user: null,
+        });
+      }
+    
+      useEffect(() => {
+        checkAuthUser();
+      }, []);
+    
+      console.log(auth, "gf");
+
     return <AuthContext.Provider value={{
         signInFormData,
         setSignInFormData,
@@ -78,6 +92,7 @@ export default function AuthProvider({children})
         signUpFormData,
         handleRegisterUser,
         handleLoginUser,
-        auth
+        auth,
+        resetCredentials
     }}>{children}</AuthContext.Provider>
 }
