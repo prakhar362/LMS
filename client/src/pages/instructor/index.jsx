@@ -3,27 +3,38 @@ import InstructorDashboard from "@/components/instructor-view/dashboard";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { AuthContext } from "@/context/auth-context";
-
+import { InstructorContext } from "@/context/instructor-context";
+import { fetchInstructorCourseListService } from "@/services";
 import { BarChart, Book, LogOut } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 
-function InstructorDashboardpage(){
-    const [activeTab, setActiveTab] = useState("dashboard");
-    const { resetCredentials } = useContext(AuthContext);
+function InstructorDashboardpage() {
+  const [activeTab, setActiveTab] = useState("dashboard");
+  const { resetCredentials } = useContext(AuthContext);
+  const { instructorCoursesList, setInstructorCoursesList } =
+    useContext(InstructorContext);
 
-  
+  async function fetchAllCourses() {
+    const response = await fetchInstructorCourseListService();
+    if (response?.success) setInstructorCoursesList(response?.data);
+  }
+
+  useEffect(() => {
+    fetchAllCourses();
+  }, []);
+
   const menuItems = [
     {
       icon: BarChart,
       label: "Dashboard",
       value: "dashboard",
-      component: <InstructorDashboard />,
+      component: <InstructorDashboard listOfCourses={instructorCoursesList} />,
     },
     {
       icon: Book,
       label: "Courses",
       value: "courses",
-      component: <InstructorCourses />,
+      component: <InstructorCourses listOfCourses={instructorCoursesList} />,
     },
     {
       icon: LogOut,
@@ -33,14 +44,15 @@ function InstructorDashboardpage(){
     },
   ];
 
-  
   function handleLogout() {
     resetCredentials();
     sessionStorage.clear();
   }
 
-    return (
-     <div className="flex h-full min-h-screen bg-gray-100">
+  console.log(instructorCoursesList, "instructorCoursesList");
+
+  return (
+    <div className="flex h-full min-h-screen bg-gray-100">
       <aside className="w-64 bg-white shadow-md hidden md:block">
         <div className="p-4">
           <h2 className="text-2xl font-bold mb-4">Instructor View</h2>
@@ -76,7 +88,7 @@ function InstructorDashboardpage(){
         </div>
       </main>
     </div>
-    );
+  );
 }
 
 export default InstructorDashboardpage;
