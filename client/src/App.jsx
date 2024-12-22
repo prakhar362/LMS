@@ -13,12 +13,13 @@ import StudentViewCourseDetailsPage from "./pages/student/course-details";
 import PaypalPaymentReturnPage from "./pages/student/payment-return";
 import StudentCoursesPage from "./pages/student/student-courses";
 import StudentViewCourseProgressPage from "./pages/student/course-progress";
-
+import LandingPage from "../src/pages/landingpage"; // Assuming LandingPage component is created for the default route.
 function App() {
   const { auth } = useContext(AuthContext);
 
   return (
     <Routes>
+      <Route path="/" element={<LandingPage />} />
       <Route
         path="/auth"
         element={
@@ -69,7 +70,7 @@ function App() {
           />
         }
       >
-        <Route path="" element={<StudentHomePage />} />
+        <Route path="/student" element={<StudentHomePage />} />
         <Route path="home" element={<StudentHomePage />} />
         <Route path="courses" element={<StudentViewCoursesPage />} />
         <Route
