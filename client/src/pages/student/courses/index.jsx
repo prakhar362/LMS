@@ -193,7 +193,7 @@ function StudentViewCoursesPage() {
             {studentViewCoursesList && studentViewCoursesList.length > 0 ? (
               studentViewCoursesList.map((courseItem) => (
                 <Card
-                  onClick={() => handleCourseNavigate(courseItem?._id)}
+                  onClick={() => navigate(`/course/details/${courseItem?._id}`)}
                   className="cursor-pointer"
                   key={courseItem?._id}
                 >
