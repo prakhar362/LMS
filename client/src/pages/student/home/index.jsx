@@ -1,5 +1,5 @@
 import { courseCategories } from "@/config";
-
+import banner from "../../../assets/banner-image.jpeg";
 import { Button } from "@/components/ui/button";
 import { useContext, useEffect } from "react";
 import { StudentContext } from "@/context/student-context";
@@ -9,9 +9,9 @@ import {
 } from "@/services";
 import { AuthContext } from "@/context/auth-context";
 import { useNavigate } from "react-router-dom";
-
 function StudentHomePage() {
-  const { studentViewCoursesList, setStudentViewCoursesList } =useContext(StudentContext);
+  const { studentViewCoursesList, setStudentViewCoursesList } =
+    useContext(StudentContext);
   const { auth } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -120,7 +120,3 @@ function StudentHomePage() {
 }
 
 export default StudentHomePage;
-
-
-
-import banner from "../../../assets/banner-image.jpeg";

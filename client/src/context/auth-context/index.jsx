@@ -1,98 +1,103 @@
-import { createContext } from "react";
-import { useState,useEffect} from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 import { initialSignInFormData, initialSignUpFormData } from "@/config";
+import { checkAuthService, loginService, registerService } from "@/services";
+import { createContext, useEffect, useState } from "react";
 
-import { registerService,loginService } from "@/services";
-export const AuthContext=createContext(null);
+export const AuthContext = createContext(null);
 
-export default function AuthProvider({children})
-{
-    const [signInFormData, setSignInFormData] = useState(initialSignInFormData);
-    const [signUpFormData, setSignUpFormData] = useState(initialSignUpFormData);
-    const [auth, setAuth] = useState({
+export default function AuthProvider({ children }) {
+  const [signInFormData, setSignInFormData] = useState(initialSignInFormData);
+  const [signUpFormData, setSignUpFormData] = useState(initialSignUpFormData);
+  const [auth, setAuth] = useState({
+    authenticate: false,
+    user: null,
+  });
+  const [loading, setLoading] = useState(true);
+
+  async function handleRegisterUser(event) {
+    event.preventDefault();
+    const data = await registerService(signUpFormData);
+  }
+
+  async function handleLoginUser(event) {
+    event.preventDefault();
+    const data = await loginService(signInFormData);
+    console.log(data, "datadatadatadatadata");
+
+    if (data.success) {
+      sessionStorage.setItem(
+        "accessToken",
+        JSON.stringify(data.data.accessToken)
+      );
+      setAuth({
+        authenticate: true,
+        user: data.data.user,
+      });
+    } else {
+      setAuth({
         authenticate: false,
         user: null,
       });
-    const [loading, setLoading] = useState(true);
-    async function handleRegisterUser(){
-        event.preventDefault();
-        const data=await registerService(signUpFormData);
-        console.log(data);
-        
     }
+  }
 
-    async function handleLoginUser(){
-        event.preventDefault();
-        const data=await loginService(signInFormData);
-        console.log(data);
-        if(data.success){
-            sessionStorage.setItem('accessToken',JSON.stringify(data.data.accessToken));
-            setAuth({
-                authenticate:true,
-                user: data.data.user
-            })
-        }
-        else{
-            setAuth({
-                authenticate:false,
-                user: null,
-            })
+  //check auth user
 
-        }
-        
-    }
-
-    //check auth-user
-    async function checkAuthUser() {
-        try {
-          const data = await checkAuthService();
-          if (data.success) {
-            setAuth({
-              authenticate: true,
-              user: data.data.user,
-            });
-            setLoading(false);
-          } else {
-            setAuth({
-              authenticate: false,
-              user: null,
-            });
-            setLoading(false);
-          }
-        } catch (error) {
-          console.log(error);
-          if (!error?.response?.data?.success) {
-            setAuth({
-              authenticate: false,
-              user: null,
-            });
-            setLoading(false);
-          }
-        }
-      }
-
-      
-      function resetCredentials() {
+  async function checkAuthUser() {
+    try {
+      const data = await checkAuthService();
+      if (data.success) {
+        setAuth({
+          authenticate: true,
+          user: data.data.user,
+        });
+        setLoading(false);
+      } else {
         setAuth({
           authenticate: false,
           user: null,
         });
+        setLoading(false);
       }
-    
-      useEffect(() => {
-        checkAuthUser();
-      }, []);
-    
-      console.log(auth, "gf");
+    } catch (error) {
+      console.log(error);
+      if (!error?.response?.data?.success) {
+        setAuth({
+          authenticate: false,
+          user: null,
+        });
+        setLoading(false);
+      }
+    }
+  }
 
-    return <AuthContext.Provider value={{
+  function resetCredentials() {
+    setAuth({
+      authenticate: false,
+      user: null,
+    });
+  }
+
+  useEffect(() => {
+    checkAuthUser();
+  }, []);
+
+  console.log(auth, "gf");
+
+  return (
+    <AuthContext.Provider
+      value={{
         signInFormData,
         setSignInFormData,
-        setSignUpFormData,
         signUpFormData,
+        setSignUpFormData,
         handleRegisterUser,
         handleLoginUser,
         auth,
-        resetCredentials
-    }}>{children}</AuthContext.Provider>
+        resetCredentials,
+      }}
+    >
+      {loading ? <Skeleton /> : children}
+    </AuthContext.Provider>
+  );
 }
