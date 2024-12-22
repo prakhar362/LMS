@@ -13,7 +13,7 @@ import StudentViewCourseDetailsPage from "./pages/student/course-details";
 import PaypalPaymentReturnPage from "./pages/student/payment-return";
 import StudentCoursesPage from "./pages/student/student-courses";
 import StudentViewCourseProgressPage from "./pages/student/course-progress";
-import LandingPage from "../src/pages/landingpage"; // Assuming LandingPage component is created for the default route.
+import LandingPage from "./pages/landing"; // Assuming LandingPage component is created for the default route.
 function App() {
   const { auth } = useContext(AuthContext);
 
