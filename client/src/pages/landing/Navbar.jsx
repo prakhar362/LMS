@@ -18,10 +18,11 @@ const Navbar = () => {
             
           </div>
           <div className="items-center justify-between hidden gap-12 text-black md:flex">
-            <a className="text-md font-bold  rounded text-dark-grey-700 hover:text-dark-grey-900 hover:bg-slate-100" href="javascript:void(0)">Product</a>
             <a className="text-md font-bold  rounded text-dark-grey-700 hover:text-dark-grey-900 hover:bg-slate-100" href="javascript:void(0)">Features</a>
-            <a className="text-md font-bold rounded text-dark-grey-700 hover:text-dark-grey-900 hover:bg-slate-100" href="javascript:void(0)">Pricing</a>
-            <a className="text-md font-bold rounded text-dark-grey-700 hover:text-dark-grey-900 hover:bg-slate-100" href="javascript:void(0)">Company</a>
+            <a className="text-md font-bold  rounded text-dark-grey-700 hover:text-dark-grey-900 hover:bg-slate-100" href="javascript:void(0)">Products</a>
+            <a className="text-md font-bold rounded text-dark-grey-700 hover:text-dark-grey-900 hover:bg-slate-100" href="javascript:void(0)">Testimonials</a>
+            <a className="text-md font-bold rounded text-dark-grey-700 hover:text-dark-grey-900 hover:bg-slate-100" href="javascript:void(0)">Instructors</a>
+            <a className="text-md font-bold rounded text-dark-grey-700 hover:text-dark-grey-900 hover:bg-slate-100" href="javascript:void(0)">About Us</a>
           </div>
           <div className="items-center hidden  gap-8 md:flex">
             <Link to='/auth'>
@@ -69,16 +70,19 @@ const Navbar = () => {
         </Button>
         <div className="flex flex-col items-start p-6 gap-4">
           <a href="#" className="text-sm font-medium text-dark-grey-700 hover:text-dark-grey-900">
+           Features
+          </a>
+          <a href="#" className="text-sm font-medium text-dark-grey-700 hover:text-dark-grey-900">
             Product
           </a>
           <a href="#" className="text-sm font-medium text-dark-grey-700 hover:text-dark-grey-900">
-            Features
+            Testimonials
           </a>
           <a href="#" className="text-sm font-medium text-dark-grey-700 hover:text-dark-grey-900">
-            Pricing
+            Instructors
           </a>
           <a href="#" className="text-sm font-medium text-dark-grey-700 hover:text-dark-grey-900">
-            Company
+            About Us
           </a>
           <Link to='/auth'>
           <Button className="px-4 py-2 text-sm font-medium text-white bg-gray-800  hover:bg-gray-300 hover:text-black ">
