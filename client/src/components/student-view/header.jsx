@@ -17,9 +17,9 @@ function StudentViewCommonHeader() {
     <header className="flex items-center justify-between p-4 border-b relative">
       <div className="flex items-center space-x-4">
         <Link to="/home" className="flex items-center hover:text-black">
-          <GraduationCap className="h-8 w-8 mr-4 " />
-          <span className="font-extrabold md:text-xl text-[14px]">
-            LMS LEARN
+        <img src="https://cdn-icons-png.flaticon.com/512/8521/8521795.png" alt=""  className="max-h-10 min-w-10"/>
+          <span className="font-extrabold ml-3 md:text-xl text-[14px]">
+            CourseConvo
           </span>
         </Link>
         <div className="flex items-center space-x-1">
