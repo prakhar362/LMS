@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import headerimg from "../../assets/image.png"
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/Button";
+import body from "./body";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -18,11 +19,11 @@ const Navbar = () => {
             
           </div>
           <div className="items-center justify-between hidden gap-12 text-black md:flex">
-            <a className="text-md font-bold  rounded text-dark-grey-700 hover:text-dark-grey-900 hover:bg-slate-100" href="javascript:void(0)">Features</a>
-            <a className="text-md font-bold  rounded text-dark-grey-700 hover:text-dark-grey-900 hover:bg-slate-100" href="javascript:void(0)">Products</a>
-            <a className="text-md font-bold rounded text-dark-grey-700 hover:text-dark-grey-900 hover:bg-slate-100" href="javascript:void(0)">Testimonials</a>
-            <a className="text-md font-bold rounded text-dark-grey-700 hover:text-dark-grey-900 hover:bg-slate-100" href="javascript:void(0)">Instructors</a>
-            <a className="text-md font-bold rounded text-dark-grey-700 hover:text-dark-grey-900 hover:bg-slate-100" href="javascript:void(0)">About Us</a>
+            <a className="text-md font-bold  rounded text-dark-grey-700 hover:text-dark-grey-900 hover:bg-slate-100" href="#features">Features</a>
+            <a className="text-md font-bold  rounded text-dark-grey-700 hover:text-dark-grey-900 hover:bg-slate-100" href="#Products">Products</a>
+            <a className="text-md font-bold rounded text-dark-grey-700 hover:text-dark-grey-900 hover:bg-slate-100" href="#Testimonials">Testimonials</a>
+            <a className="text-md font-bold rounded text-dark-grey-700 hover:text-dark-grey-900 hover:bg-slate-100" href="#instructors">Instructors</a>
+            <a className="text-md font-bold rounded text-dark-grey-700 hover:text-dark-grey-900 hover:bg-slate-100" href="#About">About Us</a>
           </div>
           <div className="items-center hidden  gap-8 md:flex">
             <Link to='/auth'>
@@ -69,19 +70,19 @@ const Navbar = () => {
           Close
         </Button>
         <div className="flex flex-col items-start p-6 gap-4">
-          <a href="#" className="text-sm font-medium text-dark-grey-700 hover:text-dark-grey-900">
+          <a href="#features" className="text-sm font-medium text-dark-grey-700 hover:text-dark-grey-900">
            Features
           </a>
-          <a href="#" className="text-sm font-medium text-dark-grey-700 hover:text-dark-grey-900">
+          <a href="#Products" className="text-sm font-medium text-dark-grey-700 hover:text-dark-grey-900">
             Product
           </a>
-          <a href="#" className="text-sm font-medium text-dark-grey-700 hover:text-dark-grey-900">
+          <a href="#Testimonials" className="text-sm font-medium text-dark-grey-700 hover:text-dark-grey-900">
             Testimonials
           </a>
-          <a href="#" className="text-sm font-medium text-dark-grey-700 hover:text-dark-grey-900">
+          <a href="#instructors" className="text-sm font-medium text-dark-grey-700 hover:text-dark-grey-900">
             Instructors
           </a>
-          <a href="#" className="text-sm font-medium text-dark-grey-700 hover:text-dark-grey-900">
+          <a href="#About" className="text-sm font-medium text-dark-grey-700 hover:text-dark-grey-900">
             About Us
           </a>
           <Link to='/auth'>

@@ -105,7 +105,7 @@ const testimonials = [
 
     return (
         <>
-         <div className="grid grid-cols-2 gap-1 mt-10 sm:grid-cols-4 sm:w-full sm:gap-2  sm:-mt-18">
+         <div className="grid grid-cols-2 gap-1 mt-10 sm:grid-cols-4 sm:w-full sm:gap-2  sm:-mt-18" id='features'>
   {/* Card 1 */}
   <div className="bg-slate-100 flex items-center justify-center p-5 text-2xl font-medium w-full min-h-24 rounded-md md:flex-row sm:flex-col">
     <UsersRound color="#e5d843" size={64} />
@@ -131,7 +131,7 @@ const testimonials = [
   </div>
 </div>
 
-<section className="course-category-3 section-padding">
+<section className="course-category-3 section-padding" id='Products'>
   <div className="container">
 
     {/* Section Heading */}
@@ -200,7 +200,7 @@ const testimonials = [
 
 <section>
   {/* Top Rated Instructors Section */}
-  <div className="container mx-auto mb-16 px-4 mt-8">
+  <div className="container mx-auto mb-16 px-4 mt-8" id='instructors'>
     <div className="text-center mb-10">
       <h2 className="text-3xl sm:text-4xl font-bold mb-4">Top Rated Instructors</h2>
       <p className="text-gray-600 text-lg">
@@ -227,9 +227,9 @@ const testimonials = [
   </section>
   <section className="relative">
   {/* Testimonials Section */}
-  <div className="container min-w-full px-4 pb-20 bg-gray-200 relative">
+  <div className="container min-w-full px-4 pb-20 bg-gray-200 relative" id='Testimonials'>
     <div className="text-center mb-8">
-      <h2 className="text-3xl sm:text-4xl font-bold mb-4">Testimonials</h2>
+      <h2 className="text-3xl sm:text-4xl font-bold mb-4 py-4 text-slate-800">Testimonials</h2>
       <p className="text-gray-600 text-lg">
         Hear what our learners have to say about their experiences.
       </p>
@@ -240,6 +240,7 @@ const testimonials = [
           key={index}
           className="bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition"
         >
+          <MessageSquareQuote size={48} color="#59075f" />
           <p className="text-gray-700 text-sm mb-4">"{testimonial.feedback}"</p>
           <h4 className="text-xl font-semibold">{testimonial.name}</h4>
           <p className="text-gray-500 text-sm">{testimonial.position}</p>
@@ -264,24 +265,67 @@ const testimonials = [
 </div>
 
 
-  {/* About Us Section */}
-  <div className="container min-w-full px-4 pt-16 mt-0 py-10 bg-blue-950 text-white relative">
-    <div className="text-center mt-10">
-      <h2 className="text-3xl sm:text-4xl font-bold mt-4 py-20">Know More About Us</h2>
-      <p className="text-gray-300 text-lg">
-        Learn more about our mission, vision, and the values that drive us to
-        provide the best educational experience.
-      </p>
-    </div>
-    <div className="p-6 rounded-lg shadow-md text-gray-700 bg-gray-100">
-      <p className="text-lg">
-        At our platform, we believe in empowering learners worldwide by
-        providing access to top-notch courses and guidance from experienced
-        instructors. Our goal is to bridge the gap between ambition and
-        achievement by offering a comprehensive learning ecosystem.
-      </p>
-    </div>
-  </div>
+<section className="container min-w-full px-4 pt-20 mt-0 py-15 bg-blue-950 text-white relative" id='About'>
+      <div className="text-center mt-10">
+        <h2 className="text-3xl sm:text-4xl font-bold mt-7 py-20">Know More About Us</h2>
+        <p className="text-gray-300 text-lg">
+          Learn more about our mission, vision, and the values that drive us to provide the best educational experience.
+        </p>
+      </div>
+
+      {/* About Us Content */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="p-6 rounded-lg  text-white bg-blue-950">
+          <h3 className="text-2xl font-bold text-white mb-4">About Us</h3>
+          <p className="text-lg">
+            At our platform, we believe in empowering learners worldwide by providing access to top-notch courses and guidance from experienced instructors. Our goal is to bridge the gap between ambition and achievement by offering a comprehensive learning ecosystem.
+          </p>
+        </div>
+
+        {/* Contact Us */}
+        <div className="p-6 rounded-lg  text-white bg-blue-950">
+          <h3 className="text-2xl font-bold text-white mb-4">Contact Us</h3>
+          <p className="text-lg">
+            <strong>Phone:</strong> +91-327-8534 <br />
+            <strong>Email:</strong> support@edumel.com <br />
+            <strong>Address:</strong> 123 Fifth Floor west-point,Mumbai.
+          </p>
+        </div>
+
+        {/* Services & Links */}
+        <div className="p-6 rounded-lg text-white bg-blue-950">
+          <h3 className="text-2xl font-bold text-white mb-4">Our Services</h3>
+          <ul className="list-disc pl-5">
+            <li>SEO Business</li>
+            <li>Digital Marketing</li>
+            <li>Graphic Design</li>
+            <li>Social Marketing</li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Footer Links */}
+      <div className="mt-10 text-center">
+        <h3 className="text-xl font-bold text-blue-950 mb-4">Quick Links</h3>
+        <div className="flex justify-center space-x-8">
+          <a href="#" className="text-gray-300 hover:text-white">Explore</a>
+          <a href="#" className="text-gray-300 hover:text-white">About Us</a>
+          <a href="#" className="text-gray-300 hover:text-white">Contact Us</a>
+          <a href="#" className="text-gray-300 hover:text-white">Services</a>
+          <a href="#" className="text-gray-300 hover:text-white">Support</a>
+        </div>
+      </div>
+
+      {/* News & Policies Links */}
+      <div className="mt-10 text-center">
+        <h3 className="text-xl font-bold text-blue-950 mb-4">Policies</h3>
+        <div className="flex justify-center space-x-8">
+          <a href="#" className="text-gray-300 hover:text-white">News & Blogs</a>
+          <a href="#" className="text-gray-300 hover:text-white">Privacy Policy</a>
+          <a href="#" className="text-gray-300 hover:text-white">Return Policy</a>
+        </div>
+      </div>
+    </section>
 </section>
 
 
