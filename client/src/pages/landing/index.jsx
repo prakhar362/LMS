@@ -16,12 +16,14 @@ import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import Navbar from "./Navbar";
 import HeroSection from "./HeroSection";
+import Main from "./body";
 
 function LandingPage() {
   return(
     <div className="bg-light-grey-100">
       <Navbar />
       <HeroSection />
+      <Main/>
     </div>
   );
 }
