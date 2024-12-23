@@ -27,7 +27,7 @@ const Navbar = () => {
             <Link to='/auth'>
             <Button className="flex items-center text-sm font-bold bg-blue-950 text-white hover:text-blue-950 hover:bg-slate-300 transition duration-300">Log In</Button>
             </Link>
-           <Link>
+           <Link to='/auth'>
            <Button className="flex items-center text-sm font-bold bg-blue-950 text-white hover:text-blue-950 hover:bg-slate-300 transition duration-300">
               Sign Up
             </Button>
