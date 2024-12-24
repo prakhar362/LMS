@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import headerimg from "../../assets/image.png"
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import body from "./body";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);

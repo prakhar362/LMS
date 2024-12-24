@@ -1,5 +1,5 @@
 import { UsersRound,MonitorPlay,AlarmClockCheck,Percent,MessageSquareQuote} from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 
