@@ -1,7 +1,7 @@
 import headerimg from "../../assets/image.png"
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import hero from '../../assets/hero.png'
 const HeroSection = () => {
     return (
