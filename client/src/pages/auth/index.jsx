@@ -41,7 +41,8 @@ function AuthPage() {
       signUpFormData &&
       signUpFormData.userName !== "" &&
       signUpFormData.userEmail !== "" &&
-      signUpFormData.password !== ""
+      signUpFormData.password !== "" &&
+      signUpFormData.role !== ""
     );
   }
 
