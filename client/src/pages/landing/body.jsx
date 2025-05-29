@@ -313,6 +313,9 @@ const testimonials = [
           <a href="#" className="text-gray-300 hover:text-white">Contact Us</a>
           <a href="#" className="text-gray-300 hover:text-white">Services</a>
           <a href="#" className="text-gray-300 hover:text-white">Support</a>
+           <a href="#" className="text-gray-300 hover:text-white">News & Blogs</a>
+          <a href="#" className="text-gray-300 hover:text-white">Privacy Policy</a>
+          <a href="#" className="text-gray-300 hover:text-white">Return Policy</a>
         </div>
       </div>
 
@@ -320,9 +323,7 @@ const testimonials = [
       <div className="mt-10 text-center">
         <h3 className="text-xl font-bold text-blue-950 mb-4">Policies</h3>
         <div className="flex justify-center space-x-8">
-          <a href="#" className="text-gray-300 hover:text-white">News & Blogs</a>
-          <a href="#" className="text-gray-300 hover:text-white">Privacy Policy</a>
-          <a href="#" className="text-gray-300 hover:text-white">Return Policy</a>
+         
         </div>
       </div>
     </section>
