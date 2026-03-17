@@ -112,12 +112,14 @@ export async function createPaymentService(formData) {
 export async function captureAndFinalizePaymentService(
   paymentId,
   payerId,
-  orderId
+  orderId,
+  razorpay_signature
 ) {
   const { data } = await axiosInstance.post(`/student/order/capture`, {
     paymentId,
     payerId,
     orderId,
+    razorpay_signature,
   });
 
   return data;

@@ -215,14 +215,13 @@ function StudentViewCoursesPage() {
                         </span>
                       </p>
                       <p className="text-[16px] text-gray-600 mt-3 mb-2">
-                        {`${courseItem?.curriculum?.length} ${
-                          courseItem?.curriculum?.length <= 1
+                        {`${courseItem?.curriculum?.length} ${courseItem?.curriculum?.length <= 1
                             ? "Lecture"
                             : "Lectures"
-                        } - ${courseItem?.level.toUpperCase()} Level`}
+                          } - ${courseItem?.level.toUpperCase()} Level`}
                       </p>
                       <p className="font-bold text-lg">
-                        ${courseItem?.pricing}
+                        ₹{courseItem?.pricing}
                       </p>
                     </div>
                   </CardContent>

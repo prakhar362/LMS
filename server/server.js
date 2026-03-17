@@ -17,7 +17,7 @@ const MONGO_URI = process.env.MONGO_URI;
 app.use(
   cors({
     origin: process.env.CLIENT_URL,
-    
+
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
@@ -48,6 +48,6 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT,()=>{
-    console.log('Server is running on port http://localhost:5000');
+app.listen(PORT, () => {
+  console.log('Server is running on port http://localhost:5000');
 })

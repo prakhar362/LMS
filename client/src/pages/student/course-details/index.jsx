@@ -74,13 +74,27 @@ function StudentViewCourseDetailsPage() {
     setDisplayCurrentVideoFreePreview(getCurrentVideoInfo?.videoUrl);
   }
 
+  function loadScript(src) {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
+  }
+
   async function handleCreatePayment() {
     const paymentPayload = {
       userId: auth?.user?._id,
       userName: auth?.user?.userName,
       userEmail: auth?.user?.userEmail,
       orderStatus: "pending",
-      paymentMethod: "paypal",
+      paymentMethod: "razorpay",
       paymentStatus: "initiated",
       orderDate: new Date(),
       paymentId: "",
@@ -101,7 +115,39 @@ function StudentViewCourseDetailsPage() {
         "currentOrderId",
         JSON.stringify(response?.data?.orderId)
       );
-      setApprovalUrl(response?.data?.approveUrl);
+
+      const res = await loadScript(
+        "https://checkout.razorpay.com/v1/checkout.js"
+      );
+
+      if (!res) {
+        alert("Razorpay SDK failed to load. Are you online?");
+        return;
+      }
+
+      const options = {
+        key: response?.data?.razorpayKeyId,
+        amount: Math.round(studentViewCourseDetails?.pricing * 100),
+        currency: "INR",
+        name: "LMS Platform",
+        description: "Course Payment",
+        image: "https://your-logo-url.com/logo.png",
+        order_id: response?.data?.razorpayOrderId,
+        handler: async function (res) {
+          window.location.href = `/payment-return?paymentId=${res.razorpay_payment_id}&PayerID=${res.razorpay_order_id}&signature=${res.razorpay_signature}`;
+        },
+        prefill: {
+          name: auth?.user?.userName,
+          email: auth?.user?.userEmail,
+          contact: "9999999999",
+        },
+        theme: {
+          color: "#FF7622",
+        },
+      };
+
+      const paymentObject = new window.Razorpay(options);
+      paymentObject.open();
     }
   }
 
@@ -133,8 +179,8 @@ function StudentViewCourseDetailsPage() {
   const getIndexOfFreePreviewUrl =
     studentViewCourseDetails !== null
       ? studentViewCourseDetails?.curriculum?.findIndex(
-          (item) => item.freePreview
-        )
+        (item) => item.freePreview
+      )
       : -1;
 
   return (
@@ -192,11 +238,10 @@ function StudentViewCourseDetailsPage() {
               {studentViewCourseDetails?.curriculum?.map(
                 (curriculumItem, index) => (
                   <li
-                    className={`${
-                      curriculumItem?.freePreview
-                        ? "cursor-pointer"
-                        : "cursor-not-allowed"
-                    } flex items-center mb-4`}
+                    className={`${curriculumItem?.freePreview
+                      ? "cursor-pointer"
+                      : "cursor-not-allowed"
+                      } flex items-center mb-4`}
                     onClick={
                       curriculumItem?.freePreview
                         ? () => handleSetFreePreview(curriculumItem)
@@ -223,8 +268,8 @@ function StudentViewCourseDetailsPage() {
                   url={
                     getIndexOfFreePreviewUrl !== -1
                       ? studentViewCourseDetails?.curriculum[
-                          getIndexOfFreePreviewUrl
-                        ].videoUrl
+                        getIndexOfFreePreviewUrl
+                      ].videoUrl
                       : ""
                   }
                   width="450px"
@@ -233,7 +278,7 @@ function StudentViewCourseDetailsPage() {
               </div>
               <div className="mb-4">
                 <span className="text-3xl font-bold">
-                  ${studentViewCourseDetails?.pricing}
+                  ₹{studentViewCourseDetails?.pricing}
                 </span>
               </div>
               <Button onClick={handleCreatePayment} className="w-full">

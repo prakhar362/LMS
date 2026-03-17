@@ -3,11 +3,12 @@ import { captureAndFinalizePaymentService } from "@/services";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-function PaypalPaymentReturnPage() {
+function RazorpayPaymentReturnPage() {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const paymentId = params.get("paymentId");
   const payerId = params.get("PayerID");
+  const signature = params.get("signature");
 
   useEffect(() => {
     if (paymentId && payerId) {
@@ -17,7 +18,8 @@ function PaypalPaymentReturnPage() {
         const response = await captureAndFinalizePaymentService(
           paymentId,
           payerId,
-          orderId
+          orderId,
+          signature
         );
 
         if (response?.success) {
@@ -39,4 +41,4 @@ function PaypalPaymentReturnPage() {
   );
 }
 
-export default PaypalPaymentReturnPage;
+export default RazorpayPaymentReturnPage;
