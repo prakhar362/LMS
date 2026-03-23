@@ -165,3 +165,31 @@ export async function resetCourseProgressService(userId, courseId) {
 
   return data;
 }
+
+// SCM Services
+export async function fetchSCMDashboardDataService() {
+  const { data } = await axiosInstance.get(`/scm/dashboard-data`);
+  return data;
+}
+
+export async function createSCMForecastService(formData) {
+  const { data } = await axiosInstance.post(`/scm/forecast`, formData);
+  return data;
+}
+
+// CRM Services
+export async function fetchCRMDashboardDataService() {
+  const { data } = await axiosInstance.get(`/crm/dashboard-data`);
+  return data;
+}
+
+export async function triggerCRMCampaignService() {
+  const { data } = await axiosInstance.post(`/crm/trigger-campaign`);
+  return data;
+}
+
+// ERP Services
+export async function fetchERPDashboardDataService() {
+  const { data } = await axiosInstance.get(`/erp/dashboard-data`);
+  return data;
+}

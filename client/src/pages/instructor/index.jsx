@@ -5,7 +5,10 @@ import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { AuthContext } from "@/context/auth-context";
 import { InstructorContext } from "@/context/instructor-context";
 import { fetchInstructorCourseListService } from "@/services";
-import { BarChart, Book, LogOut } from "lucide-react";
+import SCMDashboard from "@/components/instructor-view/scm";
+import CRMDashboard from "@/components/instructor-view/crm";
+import ERPDashboard from "@/components/instructor-view/erp";
+import { BarChart, Book, LogOut, Truck, Users, LayoutGrid } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 
 function InstructorDashboardpage() {
@@ -37,12 +40,31 @@ function InstructorDashboardpage() {
       component: <InstructorCourses listOfCourses={instructorCoursesList} />,
     },
     {
+      icon: Truck,
+      label: "SCM (Supply Chain)",
+      value: "scm",
+      component: <SCMDashboard />,
+    },
+    {
+      icon: Users,
+      label: "CRM (Customer Rel.)",
+      value: "crm",
+      component: <CRMDashboard />,
+    },
+    {
+      icon: LayoutGrid,
+      label: "ERP (Enterprise)",
+      value: "erp",
+      component: <ERPDashboard />,
+    },
+    {
       icon: LogOut,
       label: "Logout",
       value: "logout",
       component: null,
     },
   ];
+
 
   function handleLogout() {
     resetCredentials();

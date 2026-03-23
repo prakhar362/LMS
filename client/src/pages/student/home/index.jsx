@@ -90,8 +90,9 @@ function StudentHomePage() {
           {studentViewCoursesList && studentViewCoursesList.length > 0 ? (
             studentViewCoursesList.map((courseItem) => (
               <div
+                key={courseItem?._id}
                 onClick={() => handleCourseNavigate(courseItem?._id)}
-                className="border rounded-lg overflow-hidden shadow cursor-pointer"
+                className="border rounded-lg overflow-hidden shadow cursor-pointer bg-white"
               >
                 <img
                   src={courseItem?.image}
@@ -115,6 +116,39 @@ function StudentHomePage() {
           )}
         </div>
       </section>
+
+      <section className="py-12 px-4 lg:px-8 bg-purple-50">
+        <h2 className="text-2xl font-bold mb-2 text-purple-900 font-outfit">Recommended for You 🎯</h2>
+        <p className="text-sm text-purple-700 mb-6">CRM-Driven personalization based on your learn journey</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {studentViewCoursesList && studentViewCoursesList.length > 0 ? (
+            studentViewCoursesList.slice(0, 4).map((courseItem) => (
+              <div
+                key={`rec-${courseItem._id}`}
+                onClick={() => navigate(`/course/details/${courseItem._id}`)}
+                className="bg-white border-2 border-purple-100 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer scale-100 hover:scale-[1.02]"
+              >
+                <div className="p-4">
+                   <div className="bg-purple-100 text-purple-700 text-[10px] font-bold uppercase w-fit px-2 py-0.5 rounded-full mb-3 flex items-center">
+                     <span className="w-1.5 h-1.5 bg-purple-500 rounded-full mr-1.5 animate-pulse"></span>
+                     Personalized
+                   </div>
+                   <h3 className="font-bold text-gray-900 line-clamp-2 min-h-[3rem]">{courseItem?.title}</h3>
+                   <div className="mt-4 pt-4 border-t border-gray-100">
+                     <p className="text-xs text-purple-600 font-medium">Continue growing in {courseItem?.category}</p>
+                   </div>
+                </div>
+              </div>
+            ))
+          ) : (
+             <div className="col-span-full py-12 text-center text-gray-500 bg-white rounded-xl border border-dashed">
+                Log in to see personalized recommendations
+             </div>
+          )}
+        </div>
+      </section>
+
+
     </div>
   );
 }

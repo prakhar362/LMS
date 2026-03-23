@@ -149,6 +149,11 @@ const capturePaymentAndFinalizeOrder = async (req, res) => {
       },
     });
 
+    // --- NEW: Emit orderConfirmed event for SCM, CRM, and ERP ---
+    const systemEvent = require("../../helpers/system-listeners");
+    systemEvent.emit("orderConfirmed", order);
+
+
     res.status(200).json({
       success: true,
       message: "Order confirmed",

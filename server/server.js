@@ -9,6 +9,9 @@ const studentViewCourseRoutes = require("./routes/student-routes/course-routes")
 const studentViewOrderRoutes = require("./routes/student-routes/order-routes");
 const studentCoursesRoutes = require("./routes/student-routes/student-courses-routes");
 const studentCourseProgressRoutes = require("./routes/student-routes/course-progress-routes");
+const scmRoutes = require("./routes/scm-routes");
+const crmRoutes = require("./routes/crm-routes");
+const erpRoutes = require("./routes/erp-routes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -16,10 +19,10 @@ const MONGO_URI = process.env.MONGO_URI;
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
-
+    origin: process.env.CLIENT_URL || "http://localhost:5173",
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
 
@@ -28,7 +31,11 @@ app.use(express.json());
 //database connection
 mongoose
   .connect(MONGO_URI)
-  .then(() => console.log("mongodb is connected"))
+  .then(() => {
+    console.log("mongodb is connected");
+    // Load system listeners after DB connection
+    require("./helpers/system-listeners");
+  })
   .catch((e) => console.log(e));
 
 //routes configuration
@@ -39,6 +46,9 @@ app.use("/student/course", studentViewCourseRoutes);
 app.use("/student/order", studentViewOrderRoutes);
 app.use("/student/courses-bought", studentCoursesRoutes);
 app.use("/student/course-progress", studentCourseProgressRoutes);
+app.use("/scm", scmRoutes);
+app.use("/crm", crmRoutes);
+app.use("/erp", erpRoutes);
 
 app.use((err, req, res, next) => {
   console.log(err.stack);
@@ -49,5 +59,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log('Server is running on port http://localhost:5000');
-})
+  console.log(`Server is running on port http://localhost:${PORT}`);
+});
