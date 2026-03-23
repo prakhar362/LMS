@@ -177,6 +177,12 @@ export async function createSCMForecastService(formData) {
   return data;
 }
 
+export async function logCourseDemandService(formData) {
+  const { data } = await axiosInstance.post(`/scm/course-request`, formData);
+  return data;
+}
+
+
 // CRM Services
 export async function fetchCRMDashboardDataService() {
   const { data } = await axiosInstance.get(`/crm/dashboard-data`);

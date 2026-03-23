@@ -7,17 +7,29 @@ const getCRMDashboardData = async (req, res) => {
     const segmentsCount = await CustomerProfile.aggregate([
       { $group: { _id: "$segment", count: { $sum: 1 } } }
     ]);
+
+    const lifecycleStats = await CustomerProfile.aggregate([
+       { 
+         $group: { 
+           _id: "$lifecycleStage", 
+           count: { $sum: 1 },
+           avgCLV: { $avg: "$clv" },
+           avgCAC: { $avg: "$cac" }
+         } 
+       }
+    ]);
     
     const recentInteractions = await InteractionLog.find().sort({ timestamp: -1 }).limit(10);
     
     res.status(200).json({
       success: true,
-      data: { customers, segmentsCount, recentInteractions }
+      data: { customers, segmentsCount, lifecycleStats, recentInteractions }
     });
   } catch (err) {
     res.status(500).json({ success: false, message: "CRM dashboard error" });
   }
 };
+
 
 const triggerCampaign = async (req, res) => {
   try {
