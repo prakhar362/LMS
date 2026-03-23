@@ -142,7 +142,7 @@ function StudentHomePage() {
          <div className="absolute top-0 right-0 p-20 opacity-10 rotate-12">
             <Lightbulb className="h-64 w-64 text-yellow-500" />
          </div>
-         <div className="max-w-4xl mx-auto text-center relative z-10 font-outfit">
+         <div className="max-w-4xl mx-auto text-center relative z-10">
             <h2 className="text-3xl font-black mb-4 tracking-tight">Can't find the course you're looking for? 💡</h2>
             <p className="text-slate-400 text-lg mb-8">Tell our instructors what you want to learn, and we'll prioritize it for you!</p>
             
@@ -191,7 +191,7 @@ function StudentHomePage() {
       </section>
 
       <section className="py-12 px-4 lg:px-8 bg-purple-50">
-        <h2 className="text-2xl font-bold mb-2 text-purple-900 font-outfit">Recommended for You 🎯</h2>
+        <h2 className="text-2xl font-bold mb-2 text-purple-900">Recommended for You 🎯</h2>
         <p className="text-sm text-purple-700 mb-6">CRM-Driven personalization based on your learn journey</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {studentViewCoursesList && studentViewCoursesList.length > 0 ? (

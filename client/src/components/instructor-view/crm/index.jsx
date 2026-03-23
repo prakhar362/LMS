@@ -49,8 +49,8 @@ function CRMDashboard() {
 
   if (!data) return (
     <div className="flex flex-col items-center justify-center min-h-[400px]">
-       <div className="h-10 w-10 border-4 border-slate-100 border-t-indigo-600 rounded-full animate-spin"></div>
-       <p className="mt-4 text-indigo-400 font-black uppercase text-[10px] tracking-widest animate-pulse">Syncing Lifecycle Intelligence...</p>
+       <div className="h-10 w-10 border-4 border-slate-100 border-t-slate-600 rounded-full animate-spin"></div>
+       <p className="mt-4 text-slate-400 font-black uppercase text-[10px] tracking-widest animate-pulse">Syncing Lifecycle Intelligence...</p>
     </div>
   );
 
@@ -59,9 +59,9 @@ function CRMDashboard() {
       id: "acquisition",
       title: "Acquisition",
       icon: Target2,
-      color: "from-blue-500 to-indigo-500",
-      lightColor: "bg-blue-50/50",
-      textColor: "text-blue-600",
+      color: "bg-slate-950",
+      lightColor: "bg-slate-50",
+      textColor: "text-slate-900",
       description: "Synthesis & Conversion",
       focus: "CAC Optimization"
     },
@@ -69,9 +69,9 @@ function CRMDashboard() {
       id: "onboarding",
       title: "Onboarding",
       icon: Rocket2,
-      color: "from-indigo-500 to-purple-500",
-      lightColor: "bg-indigo-50/50",
-      textColor: "text-indigo-600",
+      color: "bg-slate-800",
+      lightColor: "bg-slate-50",
+      textColor: "text-slate-900",
       description: "First 30-Day Synthesis",
       focus: "Velocity Factor"
     },
@@ -79,9 +79,9 @@ function CRMDashboard() {
        id: "retention",
        title: "Retention",
        icon: RefreshCcw,
-       color: "from-emerald-500 to-teal-500",
-       lightColor: "bg-emerald-50/50",
-       textColor: "text-emerald-600",
+       color: "bg-slate-400",
+       lightColor: "bg-slate-50",
+       textColor: "text-slate-900",
        description: "Proactive Engagement",
        focus: "Churn Defense"
     },
@@ -89,15 +89,15 @@ function CRMDashboard() {
        id: "loyalty",
        title: "Loyalty",
        icon: Heart2,
-       color: "from-rose-500 to-pink-500",
-       lightColor: "bg-rose-50/50",
-       textColor: "text-rose-600",
+       color: "bg-slate-200",
+       lightColor: "bg-slate-50",
+       textColor: "text-slate-900",
        description: "Brand Advocacy",
        focus: "CLV Maximization"
     }
   ];
 
-  const COLORS = ['#6366f1', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
+  const COLORS = ['#020617', '#1e293b', '#475569', '#94a3b8', '#cbd5e1'];
   
   const pieData = data.segmentsCount.map((s, i) => ({
     name: s._id.replace('_', ' ').toUpperCase(),
@@ -114,10 +114,10 @@ function CRMDashboard() {
       >
         <div className="flex items-center space-x-4">
            <div className="h-12 w-12 bg-white rounded-2xl flex items-center justify-center shadow-lg border border-slate-100">
-              <Users2 className="h-6 w-6 text-indigo-500" />
+              <Users2 className="h-6 w-6 text-slate-500" />
            </div>
            <div>
-              <h2 className="text-3xl font-black text-slate-900 tracking-tight font-outfit">Lifecycle Center</h2>
+              <h2 className="text-3xl font-black text-slate-900 tracking-tight">Lifecycle Center</h2>
               <p className="text-slate-500 font-medium text-sm italic">Strategic synthesis of the 4 CRM Interaction Methods</p>
            </div>
         </div>
@@ -149,13 +149,13 @@ function CRMDashboard() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
           >
-            <Card className="border-none shadow-xl shadow-slate-200/50 overflow-hidden bg-white ring-1 ring-slate-100 hover:ring-indigo-100 hover:-translate-y-1 transition-all duration-300 group">
-              <div className={`h-1.5 w-full bg-gradient-to-r ${stage.color}`}></div>
+            <Card className="border-none shadow-xl shadow-slate-200/50 overflow-hidden bg-white ring-1 ring-slate-100 hover:ring-slate-400 hover:-translate-y-1 transition-all duration-300 group">
+              <div className={`h-1.5 w-full ${stage.color}`}></div>
               <CardHeader className="pb-2">
                  <div className={`p-3 w-fit rounded-2xl ${stage.lightColor} group-hover:scale-110 transition-transform mb-4`}>
                    <stage.icon className={`h-6 w-6 ${stage.textColor}`} />
                  </div>
-                 <CardTitle className="text-xl font-black font-outfit text-slate-800 tracking-tight">{stage.title}</CardTitle>
+                 <CardTitle className="text-xl font-black text-slate-800 tracking-tight">{stage.title}</CardTitle>
                  <CardDescription className="text-xs font-bold leading-tight line-clamp-1">{stage.description}</CardDescription>
               </CardHeader>
               <CardContent className="pt-4">
@@ -180,8 +180,8 @@ function CRMDashboard() {
         <Card className="lg:col-span-2 border-none shadow-2xl shadow-slate-200/60 bg-white ring-1 ring-slate-100 overflow-hidden">
           <CardHeader className="bg-slate-50/50 border-b border-slate-200 py-8 px-8 flex flex-row items-center justify-between">
             <div>
-              <CardTitle className="text-xl font-black font-outfit text-slate-800 flex items-center">
-                <Activity className="mr-3 h-6 w-6 text-emerald-500" />
+              <CardTitle className="text-xl font-black text-slate-800 flex items-center">
+                <Activity className="mr-3 h-6 w-6 text-slate-950" />
                 Strategic Signal Stream
               </CardTitle>
               <CardDescription className="text-slate-500 font-medium">Monitoring real-time behavioral vectors across lifecycle stages</CardDescription>
@@ -202,7 +202,7 @@ function CRMDashboard() {
               </TableHeader>
               <TableBody>
                 {data.recentInteractions.map((log, i) => (
-                  <TableRow key={i} className="group border-slate-50 hover:bg-indigo-50/30 transition-all cursor-default">
+                  <TableRow key={i} className="group border-slate-50 hover:bg-slate-50/30 transition-all cursor-default">
                     <TableCell className="pl-8 py-5">
                        <div className="flex items-center space-x-3">
                           <div className={`h-10 w-10 rounded-xl flex items-center justify-center ${
@@ -224,7 +224,7 @@ function CRMDashboard() {
                           <ShieldCheck className="h-4 w-4 text-emerald-500" />
                        </div>
                     </TableCell>
-                    <TableCell className="py-5 pr-8 text-right text-[11px] font-black font-mono text-slate-400 group-hover:text-indigo-600 transition-colors">
+                    <TableCell className="py-5 pr-8 text-right text-[11px] font-black font-mono text-slate-400 group-hover:text-black transition-colors">
                        {new Date(log.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
                     </TableCell>
                   </TableRow>
@@ -238,8 +238,8 @@ function CRMDashboard() {
         <div className="space-y-8 h-full">
            <Card className="border-none shadow-2xl shadow-slate-200/60 bg-white ring-1 ring-slate-100 h-auto overflow-hidden">
              <CardHeader className="bg-slate-50/50 pb-0 border-b border-slate-100 mb-4 px-8 py-6">
-               <CardTitle className="text-lg font-black font-outfit flex items-center text-slate-800 uppercase tracking-widest">
-                 <PieChart className="mr-3 h-5 w-5 text-indigo-500" />
+               <CardTitle className="text-lg font-black flex items-center text-slate-800 uppercase tracking-widest">
+                 <PieChart className="mr-3 h-5 w-5 text-slate-950" />
                  Spend Tier Matrix
                </CardTitle>
                <CardDescription className="text-slate-500 font-medium">Synthesis of user capital value distribution</CardDescription>
@@ -280,14 +280,14 @@ function CRMDashboard() {
              </CardFooter>
            </Card>
 
-           <Card className="border-none shadow-2xl shadow-indigo-100 bg-white ring-1 ring-indigo-200 overflow-hidden group">
+           <Card className="border-none shadow-2xl shadow-slate-100 bg-white ring-1 ring-slate-200 overflow-hidden group">
               <CardContent className="p-8 relative">
-                 <Sparkles className="absolute top-6 right-6 h-8 w-8 text-indigo-200 opacity-50 animate-pulse" />
-                 <h4 className="text-2xl font-black mb-3 font-outfit text-indigo-950 tracking-tighter">Behavioral Auto-Pilot</h4>
-                 <p className="text-xs text-indigo-900/60 leading-relaxed mb-8 font-bold font-outfit italic">
+                 <Sparkles className="absolute top-6 right-6 h-8 w-8 text-slate-200 opacity-50 animate-pulse" />
+                 <h4 className="text-2xl font-black mb-3 text-slate-950 tracking-tighter">Behavioral Auto-Pilot</h4>
+                 <p className="text-xs text-slate-900/60 leading-relaxed mb-8 font-bold italic">
                     "4 Students are currently stalled in Lesson 2 (Onboarding stage). This indicates potential churn-drift."
                  </p>
-                 <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-2xl h-14 shadow-2xl shadow-indigo-300 transition-all hover:scale-[1.02] active:scale-95 group-hover:rotate-1">
+                 <Button className="w-full bg-slate-600 hover:bg-slate-700 text-white font-black rounded-2xl h-14 shadow-2xl shadow-slate-300 transition-all hover:scale-[1.02] active:scale-95 group-hover:rotate-1">
                     Execute Recall Synthesis <ArrowRight className="ml-2 h-5 w-5" />
                  </Button>
               </CardContent>

@@ -49,28 +49,28 @@ function InstructorDashboard({ listOfCourses }) {
       icon: Users,
       label: "Total Students",
       value: totalStudents,
-      color: "bg-blue-50",
-      textColor: "text-blue-600",
+      color: "bg-slate-50",
+      textColor: "text-slate-900",
       trend: "+12.5%",
-      iconColor: "text-blue-500"
+      iconColor: "text-slate-900"
     },
     {
       icon: DollarSign,
       label: "Total Revenue",
       value: `₹${totalProfit.toLocaleString()}`,
-      color: "bg-emerald-50",
-      textColor: "text-emerald-600",
+      color: "bg-slate-950",
+      textColor: "text-white",
       trend: "+8.3%",
-      iconColor: "text-emerald-500"
+      iconColor: "text-white"
     },
     {
       icon: GraduationCap,
       label: "Active Courses",
       value: listOfCourses.length,
-      color: "bg-orange-50",
-      textColor: "text-orange-600",
+      color: "bg-slate-50",
+      textColor: "text-slate-900",
       trend: "Steady",
-      iconColor: "text-orange-500"
+      iconColor: "text-slate-900"
     },
   ];
 
@@ -84,10 +84,10 @@ function InstructorDashboard({ listOfCourses }) {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-slate-200 pb-8">
          <div className="flex items-center space-x-4">
             <div className="h-12 w-12 bg-white rounded-2xl flex items-center justify-center shadow-lg border border-slate-100">
-               <Sparkles className="h-6 w-6 text-indigo-500" />
+               <Sparkles className="h-6 w-6 text-slate-950" />
             </div>
             <div>
-               <h2 className="text-3xl font-black text-slate-900 tracking-tight font-outfit">Instructor Command</h2>
+               <h2 className="text-3xl font-black text-slate-900 tracking-tight">Instructor Command</h2>
                <p className="text-slate-500 font-medium text-sm">Welcome back! Here's your performance snapshot.</p>
             </div>
          </div>
@@ -125,11 +125,11 @@ function InstructorDashboard({ listOfCourses }) {
                 </div>
               </CardHeader>
               <CardContent className="pt-2">
-                <div className="text-4xl font-black font-outfit text-slate-900 tracking-tighter">{item.value}</div>
+                <div className="text-4xl font-black text-slate-900 tracking-tighter">{item.value}</div>
                 <div className="flex items-center mt-3">
-                   <div className="flex items-center bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100 mr-2">
-                      <TrendingUp className="h-2.5 w-2.5 text-emerald-500 mr-1" />
-                      <span className="text-[9px] font-black text-emerald-600 uppercase tracking-tighter">{item.trend}</span>
+                   <div className="flex items-center bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200 mr-2">
+                      <TrendingUp className="h-2.5 w-2.5 text-slate-900 mr-1" />
+                      <span className="text-[9px] font-black text-slate-900 uppercase tracking-tighter">{item.trend}</span>
                    </div>
                    <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Growth Factor</span>
                 </div>
@@ -169,7 +169,7 @@ function InstructorDashboard({ listOfCourses }) {
                       {studentItem.courseTitle}
                     </TableCell>
                     <TableCell className="py-5">
-                       <span className="bg-white text-slate-800 px-4 py-1.5 rounded-xl text-[10px] font-black border border-slate-200 uppercase shadow-sm group-hover:border-indigo-200 transition-colors">
+                     <span className="bg-white text-slate-800 px-4 py-1.5 rounded-xl text-[10px] font-black border border-slate-200 uppercase shadow-sm group-hover:border-slate-400 transition-colors">
                           {studentItem.studentName}
                        </span>
                     </TableCell>
@@ -187,12 +187,12 @@ function InstructorDashboard({ listOfCourses }) {
               <div className="h-16 w-16 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6">
                  <Users className="h-8 w-8 text-slate-200" />
               </div>
-              <p className="text-slate-400 font-black uppercase text-xs tracking-[0.3em] font-outfit">Zero Students Synced</p>
+              <p className="text-slate-400 font-black uppercase text-xs tracking-[0.3em]">Zero Students Synced</p>
            </div>
         )}
         <CardFooter className="bg-slate-50/50 py-4 px-8 border-t border-slate-200 flex justify-between items-center text-[10px] font-bold text-slate-400 uppercase tracking-widest">
            <span>Showing Sync Pulse: {new Date().toLocaleTimeString()}</span>
-           <span className="text-indigo-500 font-black cursor-pointer hover:underline">Download Master CSV</span>
+           <span className="text-slate-950 font-black cursor-pointer hover:underline">Download Master CSV</span>
         </CardFooter>
       </Card>
     </motion.div>

@@ -33,8 +33,8 @@ function SCMDashboard() {
 
   if (!data) return (
     <div className="flex flex-col items-center justify-center min-h-[400px]">
-       <RefreshCcw className="h-10 w-10 text-indigo-200 animate-spin mb-4" />
-       <p className="text-indigo-400 font-black uppercase text-[10px] tracking-widest animate-pulse">Synthesizing Supply Chain...</p>
+       <RefreshCcw className="h-10 w-10 text-slate-200 animate-spin mb-4" />
+       <p className="text-slate-400 font-black uppercase text-[10px] tracking-widest animate-pulse">Synthesizing Supply Chain...</p>
     </div>
   );
 
@@ -56,7 +56,7 @@ function SCMDashboard() {
         className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-slate-200 pb-8"
       >
         <div>
-          <h2 className="text-4xl font-black text-slate-900 tracking-tight font-outfit">SCM Intelligence</h2>
+          <h2 className="text-4xl font-black text-slate-900 tracking-tight">SCM Intelligence</h2>
           <p className="text-slate-500 font-medium">Equilibrium Management: Push-Predictions vs Pull-Market Demand</p>
         </div>
         <div className="bg-white p-1.5 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-2">
@@ -64,7 +64,7 @@ function SCMDashboard() {
             variant={activeView === 'overview' ? 'default' : 'ghost'} 
             size="sm"
             onClick={() => setActiveView('overview')}
-            className={activeView === 'overview' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200/50 hover:bg-indigo-700' : 'text-slate-500'}
+            className={activeView === 'overview' ? 'bg-slate-600 text-white shadow-lg shadow-slate-200/50 hover:bg-slate-700' : 'text-slate-500'}
            >
             Overview
            </Button>
@@ -72,7 +72,7 @@ function SCMDashboard() {
             variant={activeView === 'analytics' ? 'default' : 'ghost'} 
             size="sm"
             onClick={() => setActiveView('analytics')}
-            className={activeView === 'analytics' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200/50 hover:bg-indigo-700' : 'text-slate-500'}
+            className={activeView === 'analytics' ? 'bg-slate-600 text-white shadow-lg shadow-slate-200/50 hover:bg-slate-700' : 'text-slate-500'}
            >
             Forecasting
            </Button>
@@ -91,10 +91,10 @@ function SCMDashboard() {
             {/* KPI STATS - Pure Light */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               {[
-                { title: 'Market Demand', value: data.courseRequests?.length || 0, sub: 'Log Entries', icon: Users, color: 'text-indigo-600', bg: 'bg-indigo-50' },
-                { title: 'Push Supply', value: data.forecasts.length, sub: 'Verified Units', icon: Zap, color: 'text-amber-500', bg: 'bg-amber-50' },
-                { title: 'Accuracy', value: '92.4%', sub: 'Forecasting Score', icon: TrendingUp, color: 'text-emerald-600', bg: 'bg-emerald-50' },
-                { title: 'Assets', value: '98%', sub: 'Inventory Health', icon: Globe, color: 'text-blue-600', bg: 'bg-blue-50' },
+                { title: 'Market Demand', value: data.courseRequests?.length || 0, sub: 'Log Entries', icon: Users, color: 'text-slate-900', bg: 'bg-slate-50' },
+                { title: 'Push Supply', value: data.forecasts.length, sub: 'Verified Units', icon: Zap, color: 'text-slate-700', bg: 'bg-slate-100' },
+                { title: 'Accuracy', value: '92.4%', sub: 'Forecasting Score', icon: TrendingUp, color: 'text-slate-950', bg: 'bg-slate-200' },
+                { title: 'Assets', value: '98%', sub: 'Inventory Health', icon: Globe, color: 'text-slate-500', bg: 'bg-slate-50' },
               ].map((stat, i) => (
                 <Card key={i} className="border-none shadow-xl shadow-slate-200/40 bg-white ring-1 ring-slate-100/50">
                   <CardContent className="pt-6">
@@ -104,7 +104,7 @@ function SCMDashboard() {
                        </div>
                        <div className="text-right">
                           <p className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 leading-none">{stat.title}</p>
-                          <p className="text-3xl font-black font-outfit text-slate-900 mt-2">{stat.value}</p>
+                          <p className="text-3xl font-black text-slate-900 mt-2">{stat.value}</p>
                        </div>
                     </div>
                     <div className="pt-2 border-t border-slate-50 flex items-center justify-between">
@@ -120,13 +120,13 @@ function SCMDashboard() {
               <Card className="border-none shadow-2xl shadow-slate-200/60 bg-white ring-1 ring-slate-200 overflow-hidden">
                 <CardHeader className="bg-slate-50/50 border-b border-slate-200 py-6 px-8 flex flex-row items-center justify-between">
                   <div>
-                    <CardTitle className="text-xl font-black font-outfit flex items-center text-slate-800">
-                      <Users className="mr-3 h-5 w-5 text-indigo-500" />
+                    <CardTitle className="text-xl font-black flex items-center text-slate-800">
+                      <Users className="mr-3 h-5 w-5 text-slate-950" />
                       Global Demand Monitor
                     </CardTitle>
                     <CardDescription className="text-slate-500 font-medium">Real-time student requests (Pull Model Logic)</CardDescription>
                   </div>
-                  <div className="h-3 w-3 bg-red-500 rounded-full animate-ping"></div>
+                  <div className="h-3 w-3 bg-slate-950 rounded-full animate-ping"></div>
                 </CardHeader>
                 <CardContent className="p-0">
                   <div className="p-8 space-y-4 max-h-[450px] overflow-y-auto custom-scrollbar">
@@ -136,23 +136,23 @@ function SCMDashboard() {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.05 }}
                         key={i} 
-                        className="flex items-center justify-between p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:border-indigo-300 hover:shadow-lg hover:shadow-indigo-100/50 transition-all cursor-pointer group"
+                        className="flex items-center justify-between p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:border-slate-300 hover:shadow-lg hover:shadow-slate-100/50 transition-all cursor-pointer group"
                       >
                          <div className="flex items-center space-x-4">
-                            <div className="h-12 w-12 flex items-center justify-center bg-indigo-50 rounded-2xl group-hover:bg-indigo-600 transition-colors">
-                               <Lightbulb className="h-6 w-6 text-indigo-500 group-hover:text-white transition-colors" />
+                            <div className="h-12 w-12 flex items-center justify-center bg-slate-100 rounded-2xl group-hover:bg-slate-950 transition-colors">
+                               <Lightbulb className="h-6 w-6 text-slate-950 group-hover:text-white transition-colors" />
                             </div>
                             <div>
                                <div className="flex items-center space-x-2">
                                   <h4 className="font-black text-slate-900 leading-tight">{req.requestedTopic}</h4>
-                                  <span className="text-[9px] bg-indigo-50 text-indigo-600 px-2 py-0.5 rounded-full font-black uppercase tracking-tighter border border-indigo-100">{req.category}</span>
+                                  <span className="text-[9px] bg-slate-100 text-slate-800 px-2 py-0.5 rounded-full font-black uppercase tracking-tighter border border-slate-200">{req.category}</span>
                                </div>
                                <p className="text-xs text-slate-400 mt-1 font-medium italic">"{req.description}"</p>
                             </div>
                          </div>
                          <div className="flex flex-col items-end pr-2">
-                            <div className="bg-slate-50 px-3 py-1 rounded-xl border border-slate-100 flex flex-col items-center group-hover:bg-indigo-50 group-hover:border-indigo-200 transition-colors">
-                               <span className="text-indigo-600 font-black text-xl leading-none">{req.votes || 1}</span>
+                            <div className="bg-slate-50 px-3 py-1 rounded-xl border border-slate-100 flex flex-col items-center group-hover:bg-slate-50 group-hover:border-slate-200 transition-colors">
+                               <span className="text-slate-950 font-black text-xl leading-none">{req.votes || 1}</span>
                                <span className="text-[9px] font-black text-slate-400 uppercase tracking-tighter mt-0.5">Votes</span>
                             </div>
                          </div>
@@ -162,7 +162,7 @@ function SCMDashboard() {
                 </CardContent>
                 <CardFooter className="bg-slate-50/50 py-4 px-8 border-t border-slate-200 text-xs text-slate-400 font-bold italic uppercase tracking-widest flex justify-between">
                    <span>SCM Pull Data Sync Integrity: Verified</span>
-                   <Button variant="link" className="text-indigo-600 font-black p-0 h-auto text-[10px] transition-colors hover:text-indigo-800">
+                   <Button variant="link" className="text-slate-600 font-black p-0 h-auto text-[10px] transition-colors hover:text-slate-800">
                       View Global Heatmap <ArrowRight className="ml-1 h-3 w-3" />
                    </Button>
                 </CardFooter>
@@ -171,8 +171,8 @@ function SCMDashboard() {
               {/* DEMAND GRAPH - Pure Light Recharts */}
               <Card className="border-none shadow-2xl shadow-slate-200/60 bg-white ring-1 ring-slate-200 overflow-hidden flex flex-col">
                 <CardHeader className="bg-slate-50/50 border-b border-slate-200 py-6 px-8">
-                   <CardTitle className="text-xl font-black font-outfit flex items-center text-slate-800">
-                     <BarChart3 className="mr-3 h-5 w-5 text-indigo-500" />
+                   <CardTitle className="text-xl font-black flex items-center text-slate-800">
+                     <BarChart3 className="mr-3 h-5 w-5 text-slate-500" />
                      Equilibrium Metrics
                    </CardTitle>
                    <CardDescription className="text-slate-500 font-medium">Predicted vs Manifested Demand Axis</CardDescription>
@@ -207,23 +207,23 @@ function SCMDashboard() {
           >
              {/* Strategic Light View */}
              <Card className="border-none shadow-2xl shadow-slate-200/60 bg-white ring-1 ring-slate-200 overflow-hidden">
-                <CardHeader className="bg-indigo-600 text-white rounded-t-xl py-10 px-10">
+                <CardHeader className="bg-slate-600 text-white rounded-t-xl py-10 px-10">
                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
                       <div>
                         <div className="flex items-center space-x-3 mb-4">
-                           <div className="h-3 w-3 bg-indigo-400 rounded-full animate-pulse shadow-lg shadow-indigo-400/50"></div>
-                           <span className="text-[10px] font-black uppercase tracking-widest text-indigo-100">AI Forecasting Engine Active</span>
+                           <div className="h-3 w-3 bg-slate-400 rounded-full animate-pulse shadow-lg shadow-slate-400/50"></div>
+                           <span className="text-[10px] font-black uppercase tracking-widest text-slate-100">AI Forecasting Engine Active</span>
                         </div>
-                        <CardTitle className="text-3xl font-black mb-3 font-outfit tracking-tighter">Inventory Capacity Forecaster</CardTitle>
-                        <CardDescription className="text-indigo-100 font-medium">Synthesis of historical enrollment and trending marketplace signals</CardDescription>
+                        <CardTitle className="text-3xl font-black mb-3 tracking-tighter">Inventory Capacity Forecaster</CardTitle>
+                        <CardDescription className="text-slate-100 font-medium">Synthesis of historical enrollment and trending marketplace signals</CardDescription>
                       </div>
                       <div className="flex bg-white/10 p-4 rounded-2xl border border-white/20 backdrop-blur-md">
                          <div className="text-center px-6 border-r border-white/10">
-                            <p className="text-[10px] font-black uppercase text-indigo-200 tracking-[0.2em] mb-1">Integrity Score</p>
+                            <p className="text-[10px] font-black uppercase text-slate-200 tracking-[0.2em] mb-1">Integrity Score</p>
                             <p className="text-2xl font-black text-white">92.8%</p>
                          </div>
                          <div className="text-center px-6">
-                            <p className="text-[10px] font-black uppercase text-indigo-200 tracking-[0.2em] mb-1">Scale Logic</p>
+                            <p className="text-[10px] font-black uppercase text-slate-200 tracking-[0.2em] mb-1">Scale Logic</p>
                             <p className="text-2xl font-black text-white">Auto</p>
                          </div>
                       </div>
@@ -236,7 +236,7 @@ function SCMDashboard() {
                             <h4 className="font-black text-slate-800 uppercase tracking-widest text-xs">Cross-Category Trend Projection</h4>
                             <div className="flex items-center space-x-6">
                                <div className="flex items-center space-x-2">
-                                  <div className="h-3 w-3 rounded-full bg-indigo-500 shadow-md shadow-indigo-200"></div>
+                                  <div className="h-3 w-3 rounded-full bg-slate-500 shadow-md shadow-slate-200"></div>
                                   <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Push Demand</span>
                                </div>
                                <div className="flex items-center space-x-2">
@@ -268,11 +268,11 @@ function SCMDashboard() {
                          </div>
                       </div>
                       <div className="flex flex-col space-y-6 pt-2">
-                         <Card className="border-none shadow-xl bg-indigo-50/50 ring-1 ring-indigo-100/50">
+                         <Card className="border-none shadow-xl bg-slate-50/50 ring-1 ring-slate-100/50">
                             <CardHeader className="pb-2">
-                               <CardTitle className="text-[10px] font-black uppercase tracking-widest text-indigo-400">Intelligence Synthesis</CardTitle>
+                               <CardTitle className="text-[10px] font-black uppercase tracking-widest text-slate-400">Intelligence Synthesis</CardTitle>
                             </CardHeader>
-                            <CardContent className="text-xs text-indigo-900/60 leading-relaxed font-bold font-outfit italic">
+                            <CardContent className="text-xs text-slate-900/60 leading-relaxed font-bold italic">
                                "ML-CORE predicts a <b>+14.2%</b> surge in demand categories relating to <b>AI & Agentic Architectures</b>. 
                                Infrastructure auto-scale triggered."
                             </CardContent>
