@@ -2,6 +2,7 @@ const razorpay = require("../../helpers/razorpay");
 const Order = require("../../models/Order");
 const Course = require("../../models/Course");
 const StudentCourses = require("../../models/StudentCourses");
+const User = require("../../models/User");
 const crypto = require("crypto");
 
 const createOrder = async (req, res) => {
@@ -22,7 +23,10 @@ const createOrder = async (req, res) => {
       courseTitle,
       courseId,
       coursePricing,
+      appliedCredits,
     } = req.body;
+
+    const finalAmount = coursePricing - (appliedCredits || 0);
 
     const newlyCreatedCourseOrder = new Order({
       userId,
@@ -39,16 +43,20 @@ const createOrder = async (req, res) => {
       courseImage,
       courseTitle,
       courseId,
-      coursePricing,
+      coursePricing: finalAmount > 0 ? finalAmount : 0,
     });
 
     await newlyCreatedCourseOrder.save();
 
     const options = {
-      amount: Math.round(coursePricing * 100), // amount in smallest currency unit
+      amount: Math.round((finalAmount > 0 ? finalAmount : 0) * 100), // amount in smallest currency unit
       currency: "INR",
       receipt: newlyCreatedCourseOrder._id.toString(),
     };
+
+    // Store applied credits in the order to deduct later
+    newlyCreatedCourseOrder.appliedCredits = appliedCredits || 0;
+    await newlyCreatedCourseOrder.save();
 
     const paymentInfo = await razorpay.orders.create(options);
 
@@ -148,6 +156,15 @@ const capturePaymentAndFinalizeOrder = async (req, res) => {
         },
       },
     });
+
+    // Deduct credits if used
+    if (order.appliedCredits > 0) {
+      const user = await User.findById(order.userId);
+      if (user) {
+        user.credits = Math.max(0, (user.credits || 0) - order.appliedCredits);
+        await user.save();
+      }
+    }
 
     // --- NEW: Emit orderConfirmed event for SCM, CRM, and ERP ---
     const systemEvent = require("../../helpers/system-listeners");

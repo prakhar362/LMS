@@ -1,5 +1,6 @@
 const CustomerProfile = require("../models/crm/CustomerProfile");
 const InteractionLog = require("../models/crm/InteractionLog");
+const User = require("../models/User");
 
 const getCRMDashboardData = async (req, res) => {
   try {
@@ -42,4 +43,27 @@ const triggerCampaign = async (req, res) => {
   }
 };
 
-module.exports = { getCRMDashboardData, triggerCampaign };
+const sendRetentionEmails = async (req, res) => {
+  try {
+    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    const inactiveUsers = await User.find({
+      lastLoginDate: { $lt: sevenDaysAgo },
+      role: 'student'
+    });
+
+    // Mocking email sending
+    inactiveUsers.forEach(user => {
+      console.log(`Sending retention GMAIL to ${user.userEmail}: "We miss you, ${user.userName}! Come back and finish your courses to earn more credits!"`);
+    });
+
+    res.status(200).json({
+      success: true,
+      message: `Retention campaign processed for ${inactiveUsers.length} inactive users.`,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ success: false, message: "Retention campaign error" });
+  }
+};
+
+module.exports = { getCRMDashboardData, triggerCampaign, sendRetentionEmails };

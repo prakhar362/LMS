@@ -17,7 +17,7 @@ import {
   createPaymentService,
   fetchStudentViewCourseDetailsService,
 } from "@/services";
-import { CheckCircle, Globe, Lock, PlayCircle } from "lucide-react";
+import { CheckCircle, Globe, Lock, PlayCircle, Coins } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
@@ -88,7 +88,15 @@ function StudentViewCourseDetailsPage() {
     });
   }
 
+  const [useCredits, setUseCredits] = useState(false);
+  const [appliedCreditsAmount, setAppliedCreditsAmount] = useState(0);
+
   async function handleCreatePayment() {
+    const totalCredits = auth?.user?.credits || 0;
+    const coursePrice = studentViewCourseDetails?.pricing || 0;
+    const creditsToApply = useCredits ? Math.min(totalCredits, coursePrice) : 0;
+    const finalPrice = Math.max(0, coursePrice - creditsToApply);
+
     const paymentPayload = {
       userId: auth?.user?._id,
       userName: auth?.user?.userName,
@@ -105,6 +113,7 @@ function StudentViewCourseDetailsPage() {
       courseTitle: studentViewCourseDetails?.title,
       courseId: studentViewCourseDetails?._id,
       coursePricing: studentViewCourseDetails?.pricing,
+      appliedCredits: creditsToApply,
     };
 
     console.log(paymentPayload, "paymentPayload");
@@ -127,7 +136,7 @@ function StudentViewCourseDetailsPage() {
 
       const options = {
         key: response?.data?.razorpayKeyId,
-        amount: Math.round(studentViewCourseDetails?.pricing * 100),
+        amount: Math.round(finalPrice * 100),
         currency: "INR",
         name: "LMS Platform",
         description: "Course Payment",
@@ -278,9 +287,42 @@ function StudentViewCourseDetailsPage() {
               </div>
               <div className="mb-4">
                 <span className="text-3xl font-bold">
-                  ₹{studentViewCourseDetails?.pricing}
+                  ₹{useCredits ? Math.max(0, studentViewCourseDetails?.pricing - Math.min(auth?.user?.credits || 0, studentViewCourseDetails?.pricing)) : studentViewCourseDetails?.pricing}
                 </span>
+                {useCredits && (
+                  <span className="ml-2 text-sm text-gray-500 line-through">
+                    ₹{studentViewCourseDetails?.pricing}
+                  </span>
+                )}
               </div>
+              
+              <div className="mb-6 p-4 bg-amber-50 rounded-lg border border-amber-200">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <Coins className="w-5 h-5 text-amber-600" />
+                    <span className="font-semibold text-amber-800">Your Credits: {auth?.user?.credits || 0}</span>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <input 
+                    type="checkbox" 
+                    id="useCredits" 
+                    checked={useCredits}
+                    onChange={(e) => setUseCredits(e.target.checked)}
+                    disabled={(auth?.user?.credits || 0) === 0}
+                    className="w-4 h-4 rounded border-amber-300 text-amber-600 focus:ring-amber-500"
+                  />
+                  <label htmlFor="useCredits" className="text-sm font-medium text-amber-900 cursor-pointer">
+                    Apply credits for discount (1 point = ₹1)
+                  </label>
+                </div>
+                {useCredits && (
+                  <p className="mt-2 text-xs font-bold text-amber-700">
+                    -₹{Math.min(auth?.user?.credits || 0, studentViewCourseDetails?.pricing)} Discount Applied
+                  </p>
+                )}
+              </div>
+
               <Button onClick={handleCreatePayment} className="w-full">
                 Buy Now
               </Button>

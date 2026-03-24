@@ -20,7 +20,7 @@ import Main from "./body";
 
 function LandingPage() {
   return(
-    <div className="bg-light-grey-100">
+    <div className="bg-white min-h-screen overflow-x-hidden">
       <Navbar />
       <HeroSection />
       <Main/>

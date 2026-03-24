@@ -1,4 +1,5 @@
 const StudentCourses = require("../../models/StudentCourses");
+const Progress = require("../../models/CourseProgress");
 
 const getCoursesByStudentId = async (req, res) => {
   try {
@@ -7,9 +8,30 @@ const getCoursesByStudentId = async (req, res) => {
       userId: studentId,
     });
 
+    if (!studentBoughtCourses || !studentBoughtCourses.courses) {
+      return res.status(200).json({
+        success: true,
+        data: [],
+      });
+    }
+
+    const coursesWithProgress = await Promise.all(
+      studentBoughtCourses.courses.map(async (course) => {
+        const progress = await Progress.findOne({
+          userId: studentId,
+          courseId: course.courseId,
+        });
+
+        return {
+          ...course._doc,
+          completed: progress ? progress.completed : false,
+        };
+      })
+    );
+
     res.status(200).json({
       success: true,
-      data: studentBoughtCourses.courses,
+      data: coursesWithProgress,
     });
   } catch (error) {
     console.log(error);

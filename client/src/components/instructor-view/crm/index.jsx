@@ -20,8 +20,9 @@ import {
   Rocket as Rocket2,
   Heart as Heart2
 } from "lucide-react";
-import { useEffect, useState } from "react";
-import { fetchCRMDashboardDataService } from "@/services";
+import { useEffect, useState, useContext } from "react";
+import { AuthContext } from "@/context/auth-context";
+import { fetchCRMDashboardDataService, fetchInstructorFeedbackService } from "@/services";
 import { 
   BarChart, 
   Bar, 
@@ -37,15 +38,26 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 
 function CRMDashboard() {
+  const { auth } = useContext(AuthContext);
   const [data, setData] = useState(null);
+  const [feedbackList, setFeedbackList] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       const response = await fetchCRMDashboardDataService();
       if (response?.success) setData(response.data);
     }
-    fetchData();
-  }, []);
+    
+    async function fetchFeedback() {
+      const response = await fetchInstructorFeedbackService(auth?.user?._id);
+      if (response?.success) setFeedbackList(response.data);
+    }
+
+    if (auth?.user?._id) {
+      fetchData();
+      fetchFeedback();
+    }
+  }, [auth]);
 
   if (!data) return (
     <div className="flex flex-col items-center justify-center min-h-[400px]">
@@ -231,6 +243,76 @@ function CRMDashboard() {
                 ))}
               </TableBody>
             </Table>
+          </CardContent>
+        </Card>
+
+        {/* FEEDBACK FEED - Synthetic Sentiment */}
+        <Card className="lg:col-span-2 border-none shadow-2xl shadow-slate-200/60 bg-white ring-1 ring-slate-100 overflow-hidden">
+          <CardHeader className="bg-slate-50/50 border-b border-slate-200 py-8 px-8">
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="text-xl font-black text-slate-800 flex items-center">
+                  <Heart className="mr-3 h-6 w-6 text-rose-500 fill-rose-500" />
+                  Course Completion Sentiment
+                </CardTitle>
+                <CardDescription className="text-slate-500 font-medium">Post-completion feedback and qualitative ratings</CardDescription>
+              </div>
+              {feedbackList.length > 0 && (
+                <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-2xl border border-slate-100 shadow-sm transition-all hover:scale-105">
+                  <div className="flex">
+                    {[1, 2, 3, 4, 5].map((s) => (
+                      <Star key={s} className={`h-3 w-3 ${s <= (feedbackList.reduce((acc, curr) => acc + curr.rating, 0) / feedbackList.length) ? 'fill-amber-400 text-amber-400' : 'text-slate-200'}`} />
+                    ))}
+                  </div>
+                  <span className="text-[10px] font-black text-slate-800 mt-0.5">{(feedbackList.reduce((acc, curr) => acc + curr.rating, 0) / feedbackList.length).toFixed(1)} AVG</span>
+                </div>
+              )}
+            </div>
+          </CardHeader>
+          <CardContent className="p-0 max-h-[500px] overflow-y-auto">
+            {feedbackList.length > 0 ? (
+              <div className="divide-y divide-slate-50">
+                {feedbackList.map((feedback, index) => (
+                  <motion.div 
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                    key={index} 
+                    className="p-8 hover:bg-slate-50/50 transition-all group"
+                  >
+                    <div className="flex justify-between items-start mb-4">
+                      <div className="flex items-center gap-3">
+                        <div className="h-10 w-10 bg-indigo-50 rounded-xl flex items-center justify-center border border-indigo-100">
+                          <span className="text-xs font-black text-indigo-700">{feedback.studentName.charAt(0).toUpperCase()}</span>
+                        </div>
+                        <div>
+                          <p className="font-black text-slate-900 tracking-tight leading-none">{feedback.studentName}</p>
+                          <p className="text-[10px] font-bold text-slate-400 uppercase mt-1">Course Complete</p>
+                        </div>
+                      </div>
+                      <div className="flex gap-0.5">
+                        {[1, 2, 3, 4, 5].map((s) => (
+                          <Star key={s} className={`h-4 w-4 ${s <= feedback.rating ? 'fill-amber-400 text-amber-400' : 'text-slate-200'}`} />
+                        ))}
+                      </div>
+                    </div>
+                    <p className="text-slate-600 font-medium leading-relaxed italic border-l-4 border-slate-100 pl-4 py-1">"{feedback.message}"</p>
+                    <div className="mt-4 flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-slate-400">
+                       <span className="group-hover:text-slate-950 transition-colors">{new Date(feedback.date).toLocaleDateString()}</span>
+                       <span className="bg-slate-50 border border-slate-100 px-2 py-0.5 rounded-lg">Verified Signal</span>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              <div className="p-20 text-center">
+                <div className="h-16 w-16 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                   <Activity className="h-8 w-8 text-slate-200" />
+                </div>
+                <h4 className="text-slate-900 font-black tracking-tight mb-2">No Qualitative Feedback Yet</h4>
+                <p className="text-slate-400 text-xs font-medium max-w-[240px] mx-auto">Student sentiment analysis will appear here as users complete course modules.</p>
+              </div>
+            )}
           </CardContent>
         </Card>
 

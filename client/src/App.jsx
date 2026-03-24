@@ -13,6 +13,7 @@ import StudentViewCourseDetailsPage from "./pages/student/course-details";
 import RazorpayPaymentReturnPage from "./pages/student/payment-return";
 import StudentCoursesPage from "./pages/student/student-courses";
 import StudentViewCourseProgressPage from "./pages/student/course-progress";
+import StudentCRMPage from "./pages/student/student-crm";
 import LandingPage from "./pages/landing"; // Assuming LandingPage component is created for the default route.
 function App() {
   const { auth } = useContext(AuthContext);
@@ -79,6 +80,7 @@ function App() {
         />
         <Route path="payment-return" element={<RazorpayPaymentReturnPage />} />
         <Route path="student-courses" element={<StudentCoursesPage />} />
+        <Route path="student/crm" element={<StudentCRMPage />} />
         <Route
           path="course-progress/:id"
           element={<StudentViewCourseProgressPage />}

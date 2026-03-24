@@ -194,6 +194,16 @@ export async function triggerCRMCampaignService() {
   return data;
 }
 
+export async function submitCourseFeedbackService(formData) {
+  const { data } = await axiosInstance.post(`/crm/course-feedback/submit`, formData);
+  return data;
+}
+
+export async function fetchInstructorFeedbackService(instructorId) {
+  const { data } = await axiosInstance.get(`/crm/course-feedback/${instructorId}`);
+  return data;
+}
+
 // ERP Services
 export async function fetchERPDashboardDataService() {
   const { data } = await axiosInstance.get(`/erp/dashboard-data`);

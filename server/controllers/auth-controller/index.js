@@ -52,6 +52,9 @@ const loginUser = async (req, res) => {
       { expiresIn: "120m" }
     );
   
+    checkUser.lastLoginDate = Date.now();
+    await checkUser.save();
+  
     res.status(200).json({
       success: true,
       message: "Logged in successfully",
@@ -62,6 +65,7 @@ const loginUser = async (req, res) => {
           userName: checkUser.userName,
           userEmail: checkUser.userEmail,
           role: checkUser.role,
+          credits: checkUser.credits,
         },
       },
     });

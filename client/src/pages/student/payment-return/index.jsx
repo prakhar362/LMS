@@ -1,9 +1,13 @@
+
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { AuthContext } from "@/context/auth-context";
 import { captureAndFinalizePaymentService } from "@/services";
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function RazorpayPaymentReturnPage() {
+  const navigate = useNavigate();
+  const { refreshAuthUser } = useContext(AuthContext);
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const paymentId = params.get("paymentId");
@@ -24,7 +28,8 @@ function RazorpayPaymentReturnPage() {
 
         if (response?.success) {
           sessionStorage.removeItem("currentOrderId");
-          window.location.href = "/student-courses";
+          refreshAuthUser();
+          navigate("/student-courses");
         }
       }
 

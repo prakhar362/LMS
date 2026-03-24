@@ -1,339 +1,390 @@
-import { UsersRound,MonitorPlay,AlarmClockCheck,Percent,MessageSquareQuote} from "lucide-react";
+import { UsersRound, MonitorPlay, AlarmClockCheck, Percent, MessageSquareQuote, Star, ArrowRight, Facebook, Twitter, Linkedin, Instagram, Mail, Phone, MapPin, CheckCircle2, Code2, Briefcase, Layers, Camera, Palette } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
+function Body() {
+  const categories = [
+    {
+      icon: Code2,
+      title: "Development",
+      color: "text-red-600",
+      bgColor: "bg-red-50",
+      borderColor: "border-red-100",
+      hoverShadow: "hover:shadow-red-500/10",
+      hoverBorder: "hover:border-red-200"
+    },
+    {
+      icon: Briefcase,
+      title: "Business",
+      color: "text-blue-500",
+      bgColor: "bg-blue-50",
+      borderColor: "border-blue-100",
+      hoverShadow: "hover:shadow-blue-500/10",
+      hoverBorder: "hover:border-blue-200"
+    },
+    {
+      icon: Layers,
+      title: "3D & Animation",
+      color: "text-green-600",
+      bgColor: "bg-green-50",
+      borderColor: "border-green-100",
+      hoverShadow: "hover:shadow-green-500/10",
+      hoverBorder: "hover:border-green-200"
+    },
+    {
+      icon: Camera,
+      title: "Photography",
+      color: "text-yellow-600",
+      bgColor: "bg-yellow-50",
+      borderColor: "border-yellow-100",
+      hoverShadow: "hover:shadow-yellow-500/10",
+      hoverBorder: "hover:border-yellow-200"
+    },
+    {
+      icon: Palette,
+      title: "Graphic Design",
+      color: "text-indigo-600",
+      bgColor: "bg-indigo-50",
+      borderColor: "border-indigo-100",
+      hoverShadow: "hover:shadow-indigo-500/10",
+      hoverBorder: "hover:border-indigo-200"
+    },
+  ];
 
-function body()
-{
-    const categories = [
-        {
-          img: "https://bestwpware.com/themes-wp/edumel/wp-content/uploads/2023/09/icon5.png",
-          title: "3D & Animation",
-          bgColor: "bg-pink-600",
-        },
-        {
-          img: "https://bestwpware.com/themes-wp/edumel/wp-content/uploads/2023/09/icon4.png",
-          title: "Business",
-          bgColor: "bg-blue-400",
-        },
-        {
-          img: "https://bestwpware.com/themes-wp/edumel/wp-content/uploads/2023/09/icon3.png",
-          title: "Development",
-          bgColor: "bg-blue-600",
-        },
-        {
-          img: "https://bestwpware.com/themes-wp/edumel/wp-content/uploads/2023/09/icon1.png",
-          title: "DSLR",
-          bgColor: "bg-purple-600",
-        },
-        {
-          img: "https://www.shutterstock.com/image-vector/angled-paint-brush-vector-outline-600nw-1393937054.jpg",
-          title: "Graphic Design",
-          bgColor: "bg-red-600",
-        },
-      ];
-      // Data for Popular Courses
-const popularCourses = [
-  {
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPicyF-MqXaGIENqsyHFoM__y7XUAmCLRPlg&s", // Replace with actual course image URLs
-    title: "Web Development Bootcamp",
-    description: "Learn to build modern websites with HTML, CSS, and JavaScript.",
-  },
-  {
-    img: "https://img-c.udemycdn.com/course/750x422/1318112_faa8_5.jpg",
-    title: "Data Science with Python",
-    description: "Master data analysis, visualization, and machine learning.",
-  },
-  {
-    img: "https://i.ytimg.com/vi/BU_afT-aIn0/maxresdefault.jpg",
-    title: "UI/UX Design Fundamentals",
-    description: "Understand the principles of user-centric design.",
-  },
-  {
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd6HN9RS6IIyGsmSDYh2lshRmN4braOgrDfQ&s",
-    title: "100xDevs Cohort 3.0",
-    description: "Become a MERN stack developer with hands-on projects along with indepth knowlege in DevOps",
-  },
-];
+  const popularCourses = [
+    {
+      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPicyF-MqXaGIENqsyHFoM__y7XUAmCLRPlg&s",
+      title: "Full Stack Development",
+      instructor: "Dr. Angela Yu",
+      rating: 4.9,
+      students: "12k+",
+      badge: "Bestseller",
+      price: "₹499",
+    },
+    {
+      img: "https://img-c.udemycdn.com/course/750x422/1318112_faa8_5.jpg",
+      title: "Mastering Data Science",
+      instructor: "Andrei Neogie",
+      rating: 4.8,
+      students: "8k+",
+      badge: "Trending",
+      price: "₹599",
+    },
+    {
+      img: "https://i.ytimg.com/vi/BU_afT-aIn0/maxresdefault.jpg",
+      title: "UX/UI Masterclass 2024",
+      instructor: "Harsh Sharma",
+      rating: 4.7,
+      students: "15k+",
+      badge: "Popular",
+      price: "₹449",
+    },
+    {
+      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd6HN9RS6IIyGsmSDYh2lshRmN4braOgrDfQ&s",
+      title: "The Ultimate DevOps Guide",
+      instructor: "Harkirat Singh",
+      rating: 4.9,
+      students: "10k+",
+      badge: "Bestseller",
+      price: "₹699",
+    },
+  ];
 
-// Data for Top Rated Instructors
-const instructors = [
-  {
-    img: "https://pbs.twimg.com/profile_images/1523987597751726081/XuQeo7gC_400x400.jpg", // Replace with actual instructor profile images
-    name: " Dr.Angela Yu",
-    title: "Senior Web Developer Instructor",
-  },
-  {
-    img: "https://images.ctfassets.net/aq13lwl6616q/3jyqzyDMgKDqWLua869Q0Z/d185d9d4cf2aaff0266601aca7e4a074/Instructor_Profiles__7_.jpg?w=300&h=300&fl=progressive&q=50&fm=jpg&bg=transparent",
-    name: "Andrei Neogie",
-    title: "Data Scientist Python Developer",
-  },
-  {
-    img: "https://pbs.twimg.com/profile_images/1854982337412444160/lozow_bh_400x400.jpg",
-    name: "Harsh Sharma",
-    title: "UI/UX Designer",
-  },
-  {
-    img: "https://yt3.googleusercontent.com/MeY_fGNrjVLV0PVOBN7dRWzMBS0y41YGm55LOaJ02cXV82a7Np9pYxxhHFqdYdncEy1I2cYR=s900-c-k-c0x00ffffff-no-rj",
-    name: "Harkirat Singh",
-    title: "Software Engineer",
-  },
-];
+  const instructors = [
+    {
+      img: "https://pbs.twimg.com/profile_images/1523987597751726081/XuQeo7gC_400x400.jpg",
+      name: "Dr. Angela Yu",
+      title: "Senior Web Developer",
+      count: "25+ Courses",
+    },
+    {
+      img: "https://images.ctfassets.net/aq13lwl6616q/3jyqzyDMgKDqWLua869Q0Z/d185d9d4cf2aaff0266601aca7e4a074/Instructor_Profiles__7_.jpg?w=300&h=300&fl=progressive&q=50&fm=jpg&bg=transparent",
+      name: "Andrei Neogie",
+      title: "Data Science Lead",
+      count: "18+ Courses",
+    },
+    {
+      img: "https://media.gettyimages.com/id/1483989790/photo/adult-indian-male-yoga-instructor-smiling-at-the-camera-and-holding-a-yoga-mat-under-his-arm.jpg?s=612x612&w=gi&k=20&c=IRIxj_RS_e7Zy2cbidjg3L5oXYm7n79tNArHmyOHdjM=",
+      name: "Harsh Sharma",
+      title: "UI/UX Specialist",
+      count: "12+ Courses",
+    },
+    {
+      img: "https://media.istockphoto.com/id/2160473960/photo/happy-satisfied-math-teacher-in-elementary-class.jpg?s=612x612&w=0&k=20&c=zaosJRQ0l2dBIjy-DLc5wAFdONtg-_78Q-FIzxjjIoo=",
+      name: "Harkirat Singh",
+      title: "DevOps Engineer",
+      count: "20+ Courses",
+    },
+  ];
 
-// Data for Testimonials
-const testimonials = [
-  {
-    feedback:
-      "This platform has transformed the way I learn. The courses are easy to follow, and the instructors are amazing!",
-    name: "Sarah Connor",
-    position: "Student",
-  },
-  {
-    feedback:
-      "The resources provided here helped me land my first job as a web developer. Highly recommend!",
-    name: "Mark Robinson",
-    position: "Junior Developer",
-  },
-  {
-    feedback:
-      "I loved the variety of courses available and the real-world projects that helped me gain confidence.",
-    name: "Laura Smith",
-    position: "UI/UX Designer",
-  },
-];
+  const testimonials = [
+    {
+      feedback: "This platform has transformed the way I learn. The courses are easy to follow, and instructors are top-notch!",
+      name: "Sarah Connor",
+      position: "Full Stack Student",
+    },
+    {
+      feedback: "The real-world projects helped me gain the confidence I needed to land my first job at a top tech firm.",
+      name: "Mark Robinson",
+      position: "Junior Developer",
+    },
+    {
+      feedback: "Best educational investment I've made. The 1:1 mentorship and credit system make it truly unique.",
+      name: "Laura Smith",
+      position: "Product Designer",
+    },
+  ];
 
+  return (
+    <div className="bg-white">
+      {/* Stats Section */}
+      <div className="container mx-auto px-4 mt-[-4rem] relative z-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {[
+            { icon: UsersRound, label: "150,000+ Students", color: "text-amber-500", bg: "bg-amber-50" },
+            { icon: MonitorPlay, label: "2,500+ Courses", color: "text-rose-500", bg: "bg-rose-50" },
+            { icon: AlarmClockCheck, label: "Lifetime Access", color: "text-emerald-500", bg: "bg-emerald-50" },
+            { icon: CheckCircle2, label: "Expert Support", color: "text-indigo-500", bg: "bg-indigo-50" },
+          ].map((stat, i) => (
+            <div key={i} className={`${stat.bg} p-6 rounded-2xl flex flex-col md:flex-row items-center justify-center text-center md:text-left gap-4 shadow-sm border border-white hover:shadow-md transition-all duration-300`}>
+              <stat.icon className={`${stat.color} w-10 h-10`} />
+              <h3 className="font-bold text-gray-800 text-lg leading-tight">{stat.label}</h3>
+            </div>
+          ))}
+        </div>
+      </div>
 
-    return (
-        <>
-         <div className="grid grid-cols-2 gap-1 mt-10 sm:grid-cols-4 sm:w-full sm:gap-2  sm:-mt-18" id='features'>
-  {/* Card 1 */}
-  <div className="bg-slate-100 flex items-center justify-center p-5 text-2xl font-medium w-full min-h-24 rounded-md md:flex-row sm:flex-col">
-    <UsersRound color="#e5d843" size={64} />
-    <h3 className="ml-6 sm:ml-4 sm:mt-2">150+ students</h3>
-  </div>
-
-  {/* Card 2 */}
-  <div className="bg-slate-100 flex items-center justify-center p-5 text-2xl font-medium w-full min-h-24  rounded-md md:flex-row sm:flex-col">
-    <MonitorPlay color="#e94007" size={64} />
-    <h3 className="ml-6 sm:ml-4 sm:mt-1">20+ courses</h3>
-  </div>
-
-  {/* Card 3 */}
-  <div className="bg-slate-100 flex items-center justify-center p-5 text-2xl font-medium w-full min-h-24 rounded-md md:flex-row sm:flex-col">
-    <AlarmClockCheck color="#51b0bd" size={64} />
-    <h3 className="ml-6 sm:ml-4 sm:mt-2">10 mins time</h3>
-  </div>
-
-  {/* Card 4 */}
-  <div className="bg-slate-100 flex items-center justify-center p-5 text-2xl font-medium w-full min-h-24  rounded-md md:flex-row sm:flex-col">
-    <Percent color="#cf7dc4" size={64} />
-    <h3 className="ml-6 sm:ml-4 sm:mt-2">100% Support</h3>
-  </div>
-</div>
-
-<section className="course-category-3 section-padding" id='Products'>
-  <div className="container">
-
-    {/* Section Heading */}
-    <div className="row mb-10 justify-center mt-4">
-    <div className="flex justify-center items-center mt-44 px-4 sm:px-6 lg:px-10 sm:ml-20">
-  <div className="section-heading text-center max-w-2xl ml-3">
-    <h2 className="text-2xl sm:text-3xl lg:text-4xl  font-bold mb-4 sm:ml-36">
-      Categories You Want to Learn
-    </h2>
-    <p className="text-base sm:text-lg lg:text-xl text-gray-600 sm:ml-28">
-      Explore a wide range of topics tailored to your interests. Start your learning journey with expert-guided courses designed to help you grow and excel.
-    </p>
-  </div>
-</div>
-    </div>
-
-    {/* Course Categories */}
-    <div className="grid grid-cols-2 gap-6 sm:grid-cols-5 sm:ml-40 ">
-      {categories.map((category, index) => (
-        <div
-          key={index}
-          className={`${category.bgColor} group hover:bg-white shadow-md rounded-lg p-4 text-center flex flex-col items-center transition duration-300 ease-in-out h-60 `}
-        >
-          <div className="bg-slate-50 mt-7 p-3 rounded-full transition hover:bg-slate-300 w-20 h-20">
-            <img
-              src={category.img}
-              alt={category.title}
-              className="w-18 h-18 p-2"
-            />
+      {/* Categories Section */}
+      <section className="py-24" id="categories">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-4xl font-black text-slate-900 mb-4">Categories You Want to Learn</h2>
+            <p className="text-slate-500 text-lg">
+              Explore a wide range of topics tailored to your interests. Start your learning journey with expert-guided courses.
+            </p>
           </div>
-          <h4 className="font-medium text-lg mt-3 text-white group-hover:text-black">{category.title}</h4>
+
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-6">
+            {categories.map((cat, i) => (
+              <div 
+                key={i} 
+                className={`group bg-white border ${cat.borderColor} p-8 rounded-[2.5rem] text-center ${cat.hoverBorder} hover:shadow-2xl ${cat.hoverShadow} transition-all duration-500 cursor-pointer`}
+              >
+                <div className={`${cat.bgColor} w-24 h-24 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform duration-500 shadow-sm border border-white/50`}>
+                  <cat.icon className={`${cat.color} w-10 h-10`} strokeWidth={2.5} />
+                </div>
+                <h4 className="font-black text-slate-800 group-hover:text-slate-900 transition-colors uppercase tracking-[0.15em] text-xs leading-relaxed">{cat.title}</h4>
+              </div>
+            ))}
+          </div>
         </div>
-      ))}
+      </section>
+
+      {/* Popular Courses Section */}
+      <section className="py-24 bg-slate-50/50" id="courses">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <div className="max-w-xl">
+              <span className="text-indigo-600 font-black uppercase tracking-widest text-xs px-3 py-1 bg-indigo-50 rounded-full mb-4 inline-block">Popular Choice</span>
+              <h2 className="text-4xl font-black text-slate-900 mb-4">Explore Popular Courses</h2>
+              <p className="text-slate-500 font-medium">Curation of our most sought-after modules designed for market-ready skills.</p>
+            </div>
+            <Link to="/courses">
+              <Button variant="outline" className="rounded-full px-8 py-6 border-slate-200 hover:bg-white hover:text-indigo-600 font-bold transition-all">View All Courses</Button>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {popularCourses.map((course, i) => (
+              <div key={i} className="bg-white rounded-3xl overflow-hidden border border-slate-100 hover:shadow-2xl hover:shadow-slate-200 transition-all duration-500 group">
+                <div className="relative overflow-hidden h-48">
+                  <img src={course.img} alt={course.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <div className="absolute top-4 left-4">
+                    <span className="bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-black uppercase text-indigo-600 shadow-sm">{course.badge}</span>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center gap-1 mb-3">
+                    <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                    <span className="text-xs font-black text-slate-900">{course.rating}</span>
+                    <span className="text-xs text-slate-400 font-bold">({course.students})</span>
+                  </div>
+                  <h4 className="text-lg font-black text-slate-900 mb-2 leading-tight group-hover:text-indigo-600 transition-colors">{course.title}</h4>
+                  <p className="text-xs font-bold text-slate-400 mb-4">By {course.instructor}</p>
+                  <div className="flex items-center justify-between pt-4 border-t border-slate-50">
+                    <span className="text-xl font-black text-indigo-600">{course.price}</span>
+                    <Link to="/auth">
+                      <Button size="sm" className="bg-slate-900 hover:bg-indigo-600 rounded-full text-xs font-black">Join Now</Button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Instructors Section */}
+      <section className="py-24" id="instructors">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tight">Top Rated Instructors</h2>
+            <p className="text-slate-500 font-medium">Learn from the experts who have real-world industry experience.</p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {instructors.map((ins, i) => (
+              <div key={i} className="text-center group">
+                <div className="relative w-48 h-48 mx-auto mb-6">
+                  <div className="absolute inset-0 bg-indigo-100 rounded-full scale-105 opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                  <img src={ins.img} alt={ins.name} className="relative w-full h-full rounded-full object-cover border-4 border-white shadow-xl transition-transform duration-500 group-hover:scale-105" />
+                </div>
+                <h4 className="text-xl font-black text-slate-900 group-hover:text-indigo-600 transition-colors">{ins.name}</h4>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1 mb-2">{ins.title}</p>
+                <span className="text-[10px] font-black bg-slate-50 text-slate-500 px-3 py-1 rounded-full">{ins.count}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-24 bg-slate-50/50" id="testimonials">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-black text-slate-900 mb-4">Student Testimonials</h2>
+            <p className="text-slate-500 font-medium italic">"Real stories from our global learning community"</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {testimonials.map((t, i) => (
+              <div key={i} className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-sm relative hover:shadow-xl transition-all duration-300">
+                <MessageSquareQuote className="absolute top-8 right-8 text-indigo-50 w-12 h-12" />
+                <div className="flex gap-1 mb-6 text-amber-400">
+                  <Star className="w-4 h-4 fill-current" />
+                  <Star className="w-4 h-4 fill-current" />
+                  <Star className="w-4 h-4 fill-current" />
+                  <Star className="w-4 h-4 fill-current" />
+                  <Star className="w-4 h-4 fill-current" />
+                </div>
+                <p className="text-slate-600 font-medium mb-8 leading-relaxed italic">"{t.feedback}"</p>
+                <div className="flex items-center gap-4 border-t border-slate-50 pt-6">
+                  <div className="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white font-black text-xs uppercase">
+                    {t.name.charAt(0)}
+                  </div>
+                  <div>
+                    <h5 className="font-black text-slate-900 text-sm leading-none">{t.name}</h5>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase">{t.position}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter / CTA Section */}
+      <section className="container mx-auto px-4 relative z-20 mt-[-2rem]">
+        <div className="bg-indigo-600 rounded-[3rem] p-12 overflow-hidden relative shadow-2xl shadow-indigo-500/20">
+          <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
+            <MonitorPlay size={200} className="text-white" />
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-12 relative z-10">
+            <div>
+              <span className="text-indigo-200 font-black uppercase tracking-widest text-xs mb-4 block">New Courses Added</span>
+              <h3 className="text-4xl font-black text-white leading-tight mb-6">Want to know special offers & updates?</h3>
+              <p className="text-indigo-100 text-lg font-medium">Join 50,000+ learners who receive our weekly curated learning insights.</p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4 bg-white/10 p-2 rounded-[2rem] backdrop-blur-md border border-white/20">
+              <input type="email" placeholder="Your Email Address" className="flex-1 bg-transparent px-6 py-4 text-white placeholder-indigo-200 font-bold outline-none" />
+              <Link to="/auth">
+                <Button className="bg-white text-indigo-600 hover:bg-slate-50 rounded-2xl px-10 py-7 font-black text-lg transition-transform hover:scale-105 active:scale-95 shadow-xl">Get Started</Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer / About Section */}
+      <footer className="bg-[#fafbff] text-slate-900 pt-32 pb-12" id="about">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+            <div className="space-y-6">
+              <div className="flex items-center gap-3">
+                <img src="https://cdn-icons-png.flaticon.com/512/8521/8521795.png" alt="Logo" className="w-10 h-10" />
+                <span className="text-2xl font-black tracking-tighter text-slate-900">CourseConvo</span>
+              </div>
+              <p className="text-slate-500 font-medium leading-relaxed">
+                Empowering learners worldwide through accessible, premium education. Our platform bridges the gap between ambition and high-tier industry achievement.
+              </p>
+              <div className="flex gap-4">
+                {[Facebook, Twitter, Instagram, Linkedin].map((Icon, i) => (
+                  <a key={i} href="#" className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center hover:bg-indigo-600 hover:border-indigo-600 hover:text-white transition-all duration-300">
+                    <Icon className="w-4 h-4" />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h4 className="font-black text-slate-900 text-lg mb-8">Quick Links</h4>
+              <ul className="space-y-4">
+                {["Explore Courses", "Expert Instructors", "Mentorship", "Special Offers", "Community"].map((link, i) => (
+                  <li key={i}>
+                    <a href="#" className="text-slate-500 font-bold hover:text-indigo-600 transition-colors flex items-center group">
+                      <ArrowRight className="w-3 h-3 mr-2 opacity-0 group-hover:opacity-100 transition-all font-black" />
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-black text-slate-900 text-lg mb-8">Support Center</h4>
+              <ul className="space-y-4">
+                {["Help Documentation", "Privacy Policy", "Terms of Service", "Student Support", "Partner Program"].map((link, i) => (
+                  <li key={i}>
+                    <a href="#" className="text-slate-500 font-bold hover:text-indigo-600 transition-colors">{link}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-black text-slate-900 text-lg mb-8">Get in Touch</h4>
+              <div className="space-y-4">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center shrink-0">
+                    <MapPin className="w-4 h-4 text-indigo-600" />
+                  </div>
+                  <p className="text-slate-500 font-medium text-sm">123 Fifth Floor, West-Point,<br />Mumbai, Maharashtra, IN</p>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center shrink-0">
+                    <Phone className="w-4 h-4 text-indigo-600" />
+                  </div>
+                  <p className="text-slate-500 font-bold text-sm">+91-555-0123-4567</p>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center shrink-0">
+                    <Mail className="w-4 h-4 text-indigo-600" />
+                  </div>
+                  <p className="text-slate-500 font-bold text-sm">support@courseconvo.com</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-slate-100 pt-12 text-center">
+            <p className="text-slate-400 font-black text-[11px] uppercase tracking-[0.2em]">
+              © 2024 CourseConvo Education Platform. All Digital Assets Protected.
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
-  </div>
-</section>
-
-<section className="py-16 bg-gray-200 mt-8">
-  {/* Popular Courses Section */}
-  <div className="container mx-auto mb-16 px-4 rounded-sm ">
-    <div className="text-center mb-10">
-      <h2 className="text-3xl sm:text-4xl font-bold mb-4">Popular Courses</h2>
-      <p className="text-black text-lg">
-        Explore our most sought-after courses curated to enhance your skills and knowledge.
-      </p>
-    </div>
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      {popularCourses.map((course, index) => (
-        <div
-          key={index}
-          className="bg-white shadow-sm rounded-sm p-4 hover:shadow-2xl transition w-full"
-        >
-          <img
-            src={course.img}
-            alt={course.title}
-            className="w-full h-36 object-cover mb-4 rounded"
-          />
-          <h4 className="text-xl font-semibold">{course.title}</h4>
-          <p className="text-gray-700 text-sm mt-2">{course.description}</p>
-        </div>
-      ))}
-    </div>
-  </div>
-  </section>
-
-
-<section>
-  {/* Top Rated Instructors Section */}
-  <div className="container mx-auto mb-16 px-4 mt-8" id='instructors'>
-    <div className="text-center mb-10">
-      <h2 className="text-3xl sm:text-4xl font-bold mb-4">Top Rated Instructors</h2>
-      <p className="text-gray-600 text-lg">
-        Learn from industry experts who are passionate about teaching.
-      </p>
-    </div>
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      {instructors.map((instructor, index) => (
-        <div
-          key={index}
-          className="bg-white shadow-sm rounded-lg p-6 text-center hover:shadow-2xl transition"
-        >
-          <img
-            src={instructor.img}
-            alt={instructor.name}
-            className="w-24 h-24 mx-auto rounded-full mb-4"
-          />
-          <h4 className="text-xl font-semibold">{instructor.name}</h4>
-          <p className="text-gray-500 text-sm mt-2">{instructor.title}</p>
-        </div>
-      ))}
-    </div>
-  </div>
-  </section>
-  <section className="relative">
-  {/* Testimonials Section */}
-  <div className="container min-w-full px-4 pb-20 bg-gray-200 relative" id='Testimonials'>
-    <div className="text-center mb-8">
-      <h2 className="text-3xl sm:text-4xl font-bold mb-4 py-4 text-slate-800">Testimonials</h2>
-      <p className="text-gray-600 text-lg">
-        Hear what our learners have to say about their experiences.
-      </p>
-    </div>
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {testimonials.map((testimonial, index) => (
-        <div
-          key={index}
-          className="bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition"
-        >
-          <MessageSquareQuote size={48} color="#59075f" />
-          <p className="text-gray-700 text-sm mb-4">"{testimonial.feedback}"</p>
-          <h4 className="text-xl font-semibold">{testimonial.name}</h4>
-          <p className="text-gray-500 text-sm">{testimonial.position}</p>
-        </div>
-      ))}
-    </div>
-  </div>
-
-  {/* Purple Divider */}
-  <div className="absolute left-1/2 transform -translate-x-1/2 -mt-10 w-3/4 bg-white rounded-lg z-10 text-black text-center flex flex-col items-center justify-center p-4 sm:p-2 sm:w-[90%] sm:text-sm lg:text-lg lg:w-2/4">
-  <img 
-    src="https://bestwpware.com/themes-wp/edumel/wp-content/uploads/2023/09/img_9.png" 
-    alt="Not Sure Where to Start"  
-    className="h-28 sm:h-14 lg:h-22 mb-2"
-  />
-  <p className="text-red-500">Not Sure Where to Start in Your Career</p>
-  <h3 className="text-3xl font-semibold text-blue-800">Want to know Special Offers & Updates of new courses?</h3>
-  <Link to='/auth'>
-  <Button className="flex items-center text-sm font-bold bg-red-500 text-white hover:text-blue-950 hover:bg-blue-300 transition duration-300 mt-3">Check Now</Button>
-  </Link>
-  
-</div>
-
-
-<section className="container min-w-full px-4 pt-20 mt-0 py-15 bg-blue-950 text-white relative" id='About'>
-      <div className="text-center mt-10">
-        <h2 className="text-3xl sm:text-4xl font-bold mt-7 py-20">Know More About Us</h2>
-        <p className="text-gray-300 text-lg">
-          Learn more about our mission, vision, and the values that drive us to provide the best educational experience.
-        </p>
-      </div>
-
-      {/* About Us Content */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div className="p-6 rounded-lg  text-white bg-blue-950">
-          <h3 className="text-2xl font-bold text-white mb-4">About Us</h3>
-          <p className="text-lg">
-            At our platform, we believe in empowering learners worldwide by providing access to top-notch courses and guidance from experienced instructors. Our goal is to bridge the gap between ambition and achievement by offering a comprehensive learning ecosystem.
-          </p>
-        </div>
-
-        {/* Contact Us */}
-        <div className="p-6 rounded-lg  text-white bg-blue-950">
-          <h3 className="text-2xl font-bold text-white mb-4">Contact Us</h3>
-          <p className="text-lg">
-            <strong>Phone:</strong> +91-327-8534 <br />
-            <strong>Email:</strong> support@edumel.com <br />
-            <strong>Address:</strong> 123 Fifth Floor west-point,Mumbai.
-          </p>
-        </div>
-
-        {/* Services & Links */}
-        <div className="p-6 rounded-lg text-white bg-blue-950">
-          <h3 className="text-2xl font-bold text-white mb-4">Our Services</h3>
-          <ul className="list-disc pl-5">
-            <li>SEO Business</li>
-            <li>Digital Marketing</li>
-            <li>Graphic Design</li>
-            <li>Social Marketing</li>
-          </ul>
-        </div>
-      </div>
-
-      {/* Footer Links */}
-      <div className="mt-10 text-center">
-        <h3 className="text-xl font-bold text-blue-950 mb-4">Quick Links</h3>
-        <div className="flex justify-center space-x-8">
-          <a href="#" className="text-gray-300 hover:text-white">Explore</a>
-          <a href="#" className="text-gray-300 hover:text-white">About Us</a>
-          <a href="#" className="text-gray-300 hover:text-white">Contact Us</a>
-          <a href="#" className="text-gray-300 hover:text-white">Services</a>
-          <a href="#" className="text-gray-300 hover:text-white">Support</a>
-           <a href="#" className="text-gray-300 hover:text-white">News & Blogs</a>
-          <a href="#" className="text-gray-300 hover:text-white">Privacy Policy</a>
-          <a href="#" className="text-gray-300 hover:text-white">Return Policy</a>
-        </div>
-      </div>
-
-      {/* News & Policies Links */}
-      <div className="mt-10 text-center">
-        <h3 className="text-xl font-bold text-blue-950 mb-4">Policies</h3>
-        <div className="flex justify-center space-x-8">
-         
-        </div>
-      </div>
-    </section>
-</section>
-
-
-
-        
-</>
-    )
+  );
 }
 
-export default body;
+export default Body;

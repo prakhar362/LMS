@@ -96,6 +96,7 @@ export default function AuthProvider({ children }) {
         handleLoginUser,
         auth,
         resetCredentials,
+        refreshAuthUser: checkAuthUser,
       }}
     >
       {loading ? <Skeleton /> : children}

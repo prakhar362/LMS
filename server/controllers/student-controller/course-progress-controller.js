@@ -1,6 +1,7 @@
 const CourseProgress = require("../../models/CourseProgress");
 const Course = require("../../models/Course");
 const StudentCourses = require("../../models/StudentCourses");
+const User = require("../../models/User");
 
 //mark current lecture as viewed
 const markCurrentLectureAsViewed = async (req, res) => {
@@ -8,6 +9,8 @@ const markCurrentLectureAsViewed = async (req, res) => {
     const { userId, courseId, lectureId } = req.body;
 
     let progress = await CourseProgress.findOne({ userId, courseId });
+    let isNewGrading = false;
+
     if (!progress) {
       progress = new CourseProgress({
         userId,
@@ -21,6 +24,7 @@ const markCurrentLectureAsViewed = async (req, res) => {
         ],
       });
       await progress.save();
+      isNewGrading = true;
     } else {
       const lectureProgress = progress.lecturesProgress.find(
         (item) => item.lectureId === lectureId
@@ -35,8 +39,18 @@ const markCurrentLectureAsViewed = async (req, res) => {
           viewed: true,
           dateViewed: new Date(),
         });
+        isNewGrading = true;
       }
       await progress.save();
+    }
+
+    // Award credits if it was a new lecture completion
+    if (isNewGrading) {
+      const user = await User.findById(userId);
+      if (user) {
+        user.credits = (user.credits || 0) + 10;
+        await user.save();
+      }
     }
 
     const course = await Course.findById(courseId);
