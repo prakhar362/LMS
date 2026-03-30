@@ -213,4 +213,9 @@ export async function fetchERPDashboardDataService() {
 export async function fetchBountiesService(query = "") {
   const { data } = await axiosInstance.get(`/bounty/list?search=${query}`);
   return data;
+}
+
+export async function sendNudgeService(data) {
+  const response = await axiosInstance.post(`/crm/nudge`, data);
+  return response.data;
 }
