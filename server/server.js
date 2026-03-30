@@ -12,6 +12,7 @@ const studentCourseProgressRoutes = require("./routes/student-routes/course-prog
 const scmRoutes = require("./routes/scm-routes");
 const crmRoutes = require("./routes/crm-routes");
 const erpRoutes = require("./routes/erp-routes");
+const bountyRoutes = require("./routes/bounty-routes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -49,6 +50,7 @@ app.use("/student/course-progress", studentCourseProgressRoutes);
 app.use("/scm", scmRoutes);
 app.use("/crm", crmRoutes);
 app.use("/erp", erpRoutes);
+app.use("/bounty", bountyRoutes);
 
 app.use((err, req, res, next) => {
   console.log(err.stack);

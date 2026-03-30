@@ -208,4 +208,9 @@ export async function fetchInstructorFeedbackService(instructorId) {
 export async function fetchERPDashboardDataService() {
   const { data } = await axiosInstance.get(`/erp/dashboard-data`);
   return data;
+}
+
+export async function fetchBountiesService(query = "") {
+  const { data } = await axiosInstance.get(`/bounty/list?search=${query}`);
+  return data;
 }

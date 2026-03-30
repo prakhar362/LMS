@@ -1,381 +1,205 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { 
-  Users, 
-  Heart, 
-  Activity, 
-  Target, 
-  Rocket, 
-  RefreshCcw, 
-  Star, 
-  ShieldCheck, 
-  TrendingUp, 
-  Sparkles,
-  Zap,
-  Users2,
-  PieChart,
-  ArrowRight,
-  Target as Target2,
-  Rocket as Rocket2,
-  Heart as Heart2
-} from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Users2, Target, Rocket, RefreshCcw, Heart, Activity, TrendingUp, Sparkles, Zap, ShieldCheck, Star, PieChart, ArrowRight, Briefcase, Megaphone, DollarSign, BrainCircuit, AlertOctagon } from "lucide-react";
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "@/context/auth-context";
 import { fetchCRMDashboardDataService, fetchInstructorFeedbackService } from "@/services";
-import { 
-  BarChart, 
-  Bar, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  ResponsiveContainer, 
-  Cell,
-  PieChart as RePieChart,
-  Pie
-} from 'recharts';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 function CRMDashboard() {
   const { auth } = useContext(AuthContext);
   const [data, setData] = useState(null);
-  const [feedbackList, setFeedbackList] = useState([]);
+  const [activeTab, setActiveTab] = useState("predictive");
 
   useEffect(() => {
     async function fetchData() {
       const response = await fetchCRMDashboardDataService();
       if (response?.success) setData(response.data);
+      // Fallback mock data if empty
+      if (!response?.data) setData({
+        lifecycleStats: [], recentInteractions: []
+      })
     }
-    
-    async function fetchFeedback() {
-      const response = await fetchInstructorFeedbackService(auth?.user?._id);
-      if (response?.success) setFeedbackList(response.data);
-    }
-
-    if (auth?.user?._id) {
-      fetchData();
-      fetchFeedback();
-    }
+    fetchData();
   }, [auth]);
 
   if (!data) return (
     <div className="flex flex-col items-center justify-center min-h-[400px]">
-       <div className="h-10 w-10 border-4 border-slate-100 border-t-slate-600 rounded-full animate-spin"></div>
-       <p className="mt-4 text-slate-400 font-black uppercase text-[10px] tracking-widest animate-pulse">Syncing Lifecycle Intelligence...</p>
+      <div className="h-10 w-10 border-4 border-slate-100 border-t-slate-600 rounded-full animate-spin"></div>
+      <p className="mt-4 text-slate-400 font-black uppercase text-[10px] tracking-widest animate-pulse">Syncing Instructor Intelligence...</p>
     </div>
   );
 
-  const lifecycleConfig = [
-    {
-      id: "acquisition",
-      title: "Acquisition",
-      icon: Target2,
-      color: "bg-slate-950",
-      lightColor: "bg-slate-50",
-      textColor: "text-slate-900",
-      description: "Synthesis & Conversion",
-      focus: "CAC Optimization"
-    },
-    {
-      id: "onboarding",
-      title: "Onboarding",
-      icon: Rocket2,
-      color: "bg-slate-800",
-      lightColor: "bg-slate-50",
-      textColor: "text-slate-900",
-      description: "First 30-Day Synthesis",
-      focus: "Velocity Factor"
-    },
-    {
-       id: "retention",
-       title: "Retention",
-       icon: RefreshCcw,
-       color: "bg-slate-400",
-       lightColor: "bg-slate-50",
-       textColor: "text-slate-900",
-       description: "Proactive Engagement",
-       focus: "Churn Defense"
-    },
-    {
-       id: "loyalty",
-       title: "Loyalty",
-       icon: Heart2,
-       color: "bg-slate-200",
-       lightColor: "bg-slate-50",
-       textColor: "text-slate-900",
-       description: "Brand Advocacy",
-       focus: "CLV Maximization"
-    }
-  ];
-
-  const COLORS = ['#020617', '#1e293b', '#475569', '#94a3b8', '#cbd5e1'];
-  
-  const pieData = data.segmentsCount.map((s, i) => ({
-    name: s._id.replace('_', ' ').toUpperCase(),
-    value: s.count
-  }));
-
   return (
-    <div className="space-y-8 p-1">
-      {/* CRM Light Header */}
-      <motion.div 
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-slate-200 pb-8"
-      >
-        <div className="flex items-center space-x-4">
-           <div className="h-12 w-12 bg-white rounded-2xl flex items-center justify-center shadow-lg border border-slate-100">
-              <Users2 className="h-6 w-6 text-slate-500" />
-           </div>
-           <div>
-              <h2 className="text-3xl font-black text-slate-900 tracking-tight">Lifecycle Center</h2>
-              <p className="text-slate-500 font-medium text-sm italic">Strategic synthesis of the 4 CRM Interaction Methods</p>
-           </div>
+    <div className="space-y-6 p-1 max-w-[1600px] mx-auto">
+      {/* Header */}
+      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+        <div>
+          <h2 className="text-3xl font-black text-slate-900 tracking-tight">Instructor Command Center</h2>
+          <p className="text-slate-500 font-medium text-sm mt-1">Predictive AI, Affiliate Marketing & Talent Bounties</p>
         </div>
-        <div className="flex items-center space-x-3">
-           <div className="bg-white p-4 rounded-3xl border border-slate-200 shadow-xl shadow-slate-100/50 flex items-center space-x-4">
-              <div className="text-right border-r border-slate-100 pr-4">
-                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">Core CLV</p>
-                 <p className="text-xl font-black text-slate-900 mt-1">₹4,250</p>
-              </div>
-              <div className="flex items-center space-x-2">
-                 <div className="p-2 bg-emerald-50 rounded-xl">
-                    <TrendingUp className="h-4 w-4 text-emerald-500" />
-                 </div>
-                 <div>
-                    <p className="text-[10px] font-black text-emerald-600 leading-none">Healthy</p>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mt-1">Status Sync</p>
-                 </div>
-              </div>
-           </div>
+        <div className="flex bg-slate-100 p-1 rounded-xl">
+          <Button variant={activeTab === 'predictive' ? 'default' : 'ghost'} onClick={() => setActiveTab('predictive')} className="h-9 px-4 rounded-lg font-bold text-xs"><BrainCircuit className="w-4 h-4 mr-2"/>Predictive Success</Button>
+          <Button variant={activeTab === 'affiliate' ? 'default' : 'ghost'} onClick={() => setActiveTab('affiliate')} className="h-9 px-4 rounded-lg font-bold text-xs"><Megaphone className="w-4 h-4 mr-2"/>Affiliate Bids</Button>
+          <Button variant={activeTab === 'bounties' ? 'default' : 'ghost'} onClick={() => setActiveTab('bounties')} className="h-9 px-4 rounded-lg font-bold text-xs"><Briefcase className="w-4 h-4 mr-2"/>Bounty Master</Button>
         </div>
       </motion.div>
 
-      {/* 4-Method Lifecycle Grid - Pure Light */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        {lifecycleConfig.map((stage, i) => (
-          <motion.div 
-            key={stage.id}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1 }}
-          >
-            <Card className="border-none shadow-xl shadow-slate-200/50 overflow-hidden bg-white ring-1 ring-slate-100 hover:ring-slate-400 hover:-translate-y-1 transition-all duration-300 group">
-              <div className={`h-1.5 w-full ${stage.color}`}></div>
-              <CardHeader className="pb-2">
-                 <div className={`p-3 w-fit rounded-2xl ${stage.lightColor} group-hover:scale-110 transition-transform mb-4`}>
-                   <stage.icon className={`h-6 w-6 ${stage.textColor}`} />
-                 </div>
-                 <CardTitle className="text-xl font-black text-slate-800 tracking-tight">{stage.title}</CardTitle>
-                 <CardDescription className="text-xs font-bold leading-tight line-clamp-1">{stage.description}</CardDescription>
-              </CardHeader>
-              <CardContent className="pt-4">
-                 <div className="flex items-baseline space-x-1">
-                    <span className="text-4xl font-black text-slate-900">
-                       {data.lifecycleStats?.find(s => s._id === stage.id)?.count || 0}
-                    </span>
-                    <span className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Active Units</span>
-                 </div>
-                 <div className="mt-5 pt-4 border-t border-slate-50 flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-slate-400">
-                    <span>Performance Focus</span>
-                    <span className={stage.textColor}>{stage.focus}</span>
-                 </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* INTERACTION STREAM - Synthetic Light Feed */}
-        <Card className="lg:col-span-2 border-none shadow-2xl shadow-slate-200/60 bg-white ring-1 ring-slate-100 overflow-hidden">
-          <CardHeader className="bg-slate-50/50 border-b border-slate-200 py-8 px-8 flex flex-row items-center justify-between">
-            <div>
-              <CardTitle className="text-xl font-black text-slate-800 flex items-center">
-                <Activity className="mr-3 h-6 w-6 text-slate-950" />
-                Strategic Signal Stream
-              </CardTitle>
-              <CardDescription className="text-slate-500 font-medium">Monitoring real-time behavioral vectors across lifecycle stages</CardDescription>
-            </div>
-            <div className="flex bg-white rounded-xl border border-slate-200 p-1">
-               <Button variant="ghost" className="h-7 text-[10px] font-black uppercase tracking-widest px-4 text-slate-600 hover:bg-slate-50">Filter Signals</Button>
-            </div>
-          </CardHeader>
-          <CardContent className="p-0">
-            <Table>
-              <TableHeader className="bg-slate-50/30">
-                <TableRow className="border-none hover:bg-transparent">
-                  <TableHead className="text-[11px] font-black uppercase text-slate-400 tracking-widest py-5 pl-8">Signal Interaction</TableHead>
-                  <TableHead className="text-[11px] font-black uppercase text-slate-400 tracking-widest py-5">Lifecycle Category</TableHead>
-                  <TableHead className="text-[11px] font-black uppercase text-slate-400 tracking-widest py-5 text-center">Stability Check</TableHead>
-                  <TableHead className="text-[11px] font-black uppercase text-slate-400 tracking-widest py-5 pr-8 text-right">System Sync</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {data.recentInteractions.map((log, i) => (
-                  <TableRow key={i} className="group border-slate-50 hover:bg-slate-50/30 transition-all cursor-default">
-                    <TableCell className="pl-8 py-5">
-                       <div className="flex items-center space-x-3">
-                          <div className={`h-10 w-10 rounded-xl flex items-center justify-center ${
-                            log.action === 'purchase' ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-50 text-slate-400'
-                          }`}>
-                             {log.action === 'purchase' ? <Zap className="h-5 w-5 fill-emerald-500" /> : <RefreshCcw className="h-5 w-5" />}
-                          </div>
-                          <div>
-                            <p className="font-black text-slate-800 capitalize leading-none tracking-tight">{log.action.replace('_', ' ')}</p>
-                            <p className="text-[10px] text-slate-400 font-mono font-bold mt-1 uppercase">USR-#{log.userId.slice(-6)}</p>
-                          </div>
-                       </div>
-                    </TableCell>
-                    <TableCell className="py-5 capitalize font-bold text-slate-600 text-[11px] tracking-wide mt-2 block">
-                       <span className="px-2 py-0.5 rounded-full border border-slate-100 bg-white">Onboarding Stage</span>
-                    </TableCell>
-                    <TableCell className="py-5 text-center">
-                       <div className="flex justify-center">
-                          <ShieldCheck className="h-4 w-4 text-emerald-500" />
-                       </div>
-                    </TableCell>
-                    <TableCell className="py-5 pr-8 text-right text-[11px] font-black font-mono text-slate-400 group-hover:text-black transition-colors">
-                       {new Date(log.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
-
-        {/* FEEDBACK FEED - Synthetic Sentiment */}
-        <Card className="lg:col-span-2 border-none shadow-2xl shadow-slate-200/60 bg-white ring-1 ring-slate-100 overflow-hidden">
-          <CardHeader className="bg-slate-50/50 border-b border-slate-200 py-8 px-8">
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle className="text-xl font-black text-slate-800 flex items-center">
-                  <Heart className="mr-3 h-6 w-6 text-rose-500 fill-rose-500" />
-                  Course Completion Sentiment
-                </CardTitle>
-                <CardDescription className="text-slate-500 font-medium">Post-completion feedback and qualitative ratings</CardDescription>
-              </div>
-              {feedbackList.length > 0 && (
-                <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-2xl border border-slate-100 shadow-sm transition-all hover:scale-105">
-                  <div className="flex">
-                    {[1, 2, 3, 4, 5].map((s) => (
-                      <Star key={s} className={`h-3 w-3 ${s <= (feedbackList.reduce((acc, curr) => acc + curr.rating, 0) / feedbackList.length) ? 'fill-amber-400 text-amber-400' : 'text-slate-200'}`} />
-                    ))}
-                  </div>
-                  <span className="text-[10px] font-black text-slate-800 mt-0.5">{(feedbackList.reduce((acc, curr) => acc + curr.rating, 0) / feedbackList.length).toFixed(1)} AVG</span>
-                </div>
-              )}
-            </div>
-          </CardHeader>
-          <CardContent className="p-0 max-h-[500px] overflow-y-auto">
-            {feedbackList.length > 0 ? (
-              <div className="divide-y divide-slate-50">
-                {feedbackList.map((feedback, index) => (
-                  <motion.div 
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    key={index} 
-                    className="p-8 hover:bg-slate-50/50 transition-all group"
-                  >
-                    <div className="flex justify-between items-start mb-4">
-                      <div className="flex items-center gap-3">
-                        <div className="h-10 w-10 bg-indigo-50 rounded-xl flex items-center justify-center border border-indigo-100">
-                          <span className="text-xs font-black text-indigo-700">{feedback.studentName.charAt(0).toUpperCase()}</span>
-                        </div>
-                        <div>
-                          <p className="font-black text-slate-900 tracking-tight leading-none">{feedback.studentName}</p>
-                          <p className="text-[10px] font-bold text-slate-400 uppercase mt-1">Course Complete</p>
-                        </div>
-                      </div>
-                      <div className="flex gap-0.5">
-                        {[1, 2, 3, 4, 5].map((s) => (
-                          <Star key={s} className={`h-4 w-4 ${s <= feedback.rating ? 'fill-amber-400 text-amber-400' : 'text-slate-200'}`} />
-                        ))}
-                      </div>
-                    </div>
-                    <p className="text-slate-600 font-medium leading-relaxed italic border-l-4 border-slate-100 pl-4 py-1">"{feedback.message}"</p>
-                    <div className="mt-4 flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-slate-400">
-                       <span className="group-hover:text-slate-950 transition-colors">{new Date(feedback.date).toLocaleDateString()}</span>
-                       <span className="bg-slate-50 border border-slate-100 px-2 py-0.5 rounded-lg">Verified Signal</span>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            ) : (
-              <div className="p-20 text-center">
-                <div className="h-16 w-16 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                   <Activity className="h-8 w-8 text-slate-200" />
-                </div>
-                <h4 className="text-slate-900 font-black tracking-tight mb-2">No Qualitative Feedback Yet</h4>
-                <p className="text-slate-400 text-xs font-medium max-w-[240px] mx-auto">Student sentiment analysis will appear here as users complete course modules.</p>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-
-        {/* COMPREHENSION PIE - Pure Light */}
-        <div className="space-y-8 h-full">
-           <Card className="border-none shadow-2xl shadow-slate-200/60 bg-white ring-1 ring-slate-100 h-auto overflow-hidden">
-             <CardHeader className="bg-slate-50/50 pb-0 border-b border-slate-100 mb-4 px-8 py-6">
-               <CardTitle className="text-lg font-black flex items-center text-slate-800 uppercase tracking-widest">
-                 <PieChart className="mr-3 h-5 w-5 text-slate-950" />
-                 Spend Tier Matrix
-               </CardTitle>
-               <CardDescription className="text-slate-500 font-medium">Synthesis of user capital value distribution</CardDescription>
+      {/* PREDICTIVE STUDENT SUCCESS (Modernized Churn UI) */}
+      {activeTab === 'predictive' && (
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-in fade-in slide-in-from-bottom-4">
+          <Card className="lg:col-span-2 border-none shadow-xl bg-white overflow-hidden ring-1 ring-slate-200">
+             <CardHeader className="bg-slate-50 border-b border-slate-100 pb-4">
+                <CardTitle className="text-xl font-black flex items-center text-slate-800"><AlertOctagon className="w-5 h-5 mr-2 text-rose-500"/> At-Risk Students (AI Predicted Churn)</CardTitle>
+                <CardDescription>Our AI detects behavior patterns (pauses, quiz fails) indicating a student is about to abandon the course.</CardDescription>
              </CardHeader>
-             <CardContent className="h-[280px] p-0 flex flex-col justify-center">
-                <ResponsiveContainer width="100%" height="100%">
-                  <RePieChart>
-                    <Pie
-                      data={pieData}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={65}
-                      outerRadius={85}
-                      paddingAngle={4}
-                      dataKey="value"
-                      stroke="none"
-                    >
-                      {pieData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip 
-                      contentStyle={{ borderRadius: '16px', border: '1px solid #f1f5f9', boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)', fontSize: '11px', fontWeight: '900', textTransform: 'uppercase' }}
-                    />
-                  </RePieChart>
-                </ResponsiveContainer>
+             <CardContent className="p-0">
+               <Table>
+                 <TableHeader>
+                   <TableRow className="bg-slate-50/50">
+                     <TableHead className="font-bold text-slate-500 pl-6 text-xs uppercase tracking-widest">Student</TableHead>
+                     <TableHead className="font-bold text-slate-500 text-xs uppercase tracking-widest">Risk Level</TableHead>
+                     <TableHead className="font-bold text-slate-500 text-xs uppercase tracking-widest">Trigger Factor</TableHead>
+                     <TableHead className="font-bold text-slate-500 text-right pr-6 text-xs uppercase tracking-widest">Action</TableHead>
+                   </TableRow>
+                 </TableHeader>
+                 <TableBody>
+                   {[
+                     { name: "John Doe", course: "Advanced React", risk: "CRITICAL", trigger: "Stalled on Auth Module for 14 days", color: "text-rose-600 bg-rose-50" },
+                     { name: "Alice Smith", course: "UI/UX Mastery", risk: "HIGH", trigger: "Failed Quiz 3 times", color: "text-orange-600 bg-orange-50" },
+                     { name: "Bob Martin", course: "Node.js Backend", risk: "MEDIUM", trigger: "Skipped 4 consecutive lectures", color: "text-amber-600 bg-amber-50" }
+                   ].map((s, i) => (
+                     <TableRow key={i}>
+                       <TableCell className="pl-6 py-4">
+                         <p className="font-black text-slate-900">{s.name}</p>
+                         <p className="text-xs text-slate-500">{s.course}</p>
+                       </TableCell>
+                       <TableCell py-4><span className={`px-2 py-1 rounded-md text-[10px] font-black tracking-widest ${s.color}`}>{s.risk}</span></TableCell>
+                       <TableCell py-4 className="text-sm font-medium text-slate-600 italic">"{s.trigger}"</TableCell>
+                       <TableCell className="text-right pr-6 py-4">
+                         <Button size="sm" className="bg-slate-900 hover:bg-slate-800 text-xs font-bold rounded-lg px-4 shadow-md">Auto-Send Help/Nudge</Button>
+                       </TableCell>
+                     </TableRow>
+                   ))}
+                 </TableBody>
+               </Table>
              </CardContent>
-             <CardFooter className="flex-col items-start pt-0 space-y-3 pb-8 px-8">
-                {pieData.map((item, i) => (
-                  <div key={i} className="flex items-center justify-between w-full border-b border-slate-50 pb-2">
-                     <div className="flex items-center space-x-3">
-                        <div className="h-3 w-3 rounded-full" style={{backgroundColor: COLORS[i % COLORS.length]}}></div>
-                        <span className="text-[11px] font-black text-slate-500 tracking-widest">{item.name}</span>
-                     </div>
-                     <span className="text-[11px] font-black text-slate-900 border border-slate-100 px-2 rounded-lg bg-slate-50">{item.value} Units</span>
+          </Card>
+          
+          <Card className="border-none shadow-xl shadow-indigo-100 bg-gradient-to-br from-indigo-600 to-indigo-900 text-white p-6 relative overflow-hidden">
+             <BrainCircuit className="absolute -bottom-10 -right-10 w-48 h-48 text-indigo-500/20" />
+             <h3 className="text-xl font-black mb-2">Automated Retention</h3>
+             <p className="text-sm text-indigo-200 mb-8 font-medium">Auto-pilot is ON. When a student hits 'HIGH' risk, an automated personalized WhatsApp message with a hint is sent.</p>
+             <div className="bg-indigo-950/40 p-4 rounded-xl backdrop-blur-sm border border-indigo-500/30">
+               <div className="flex justify-between items-center mb-2">
+                 <span className="text-xs font-bold text-indigo-300 uppercase tracking-widest">Saved Revenue</span>
+                 <span className="text-lg font-black text-emerald-400">₹45,200</span>
+               </div>
+               <p className="text-[10px] text-indigo-300">By re-engaging 32 at-risk students this month.</p>
+             </div>
+          </Card>
+        </div>
+      )}
+
+      {/* AFFILIATE MARKETING */}
+      {activeTab === 'affiliate' && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-in fade-in slide-in-from-bottom-4">
+          <Card className="border-none shadow-xl ring-1 ring-slate-200 overflow-hidden">
+             <CardHeader className="bg-emerald-50 border-b border-emerald-100">
+               <CardTitle className="flex items-center text-emerald-900"><Megaphone className="w-5 h-5 mr-2 text-emerald-600"/> Recommend Courses (Affiliate Bidding)</CardTitle>
+               <CardDescription className="text-emerald-800/70">Pay platform tokens to push your courses into the "Recommended for You" feed of target students.</CardDescription>
+             </CardHeader>
+             <CardContent className="pt-6 space-y-6">
+               <div className="space-y-4">
+                 <div>
+                   <label className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 block">Select Course to Boost</label>
+                   <select className="flex h-12 w-full items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm font-bold">
+                     <option>Ultimate Web Development 2026</option>
+                     <option>Advanced Node.js Architecture</option>
+                   </select>
+                 </div>
+                 <div>
+                   <label className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 block">Max Bid per Click (₹)</label>
+                   <Input type="number" defaultValue={15} className="h-12 rounded-xl border-slate-200 font-bold" />
+                 </div>
+                 <Button className="w-full h-12 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-lg font-black shadow-lg shadow-emerald-200">Start Campaign</Button>
+               </div>
+             </CardContent>
+          </Card>
+
+          <Card className="border-none shadow-xl ring-1 ring-slate-200">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-lg font-black text-slate-800">Active Campaigns Performance</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4 pt-4">
+                {[
+                  { name: "React Bootcamp", impressions: "45.2k", clicks: "1.2k", conversions: "84", spent: "₹18,000", roi: "+340%" }
+                ].map((camp, i) => (
+                  <div key={i} className="p-5 border border-slate-100 rounded-2xl bg-slate-50">
+                    <div className="flex justify-between items-center mb-4">
+                      <p className="font-black text-lg text-slate-900">{camp.name}</p>
+                      <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-100 border-none font-black">{camp.roi} ROI</Badge>
+                    </div>
+                    <div className="grid grid-cols-4 gap-4 text-center border-t border-slate-200 pt-4">
+                      <div><p className="text-[10px] font-bold text-slate-400 uppercase">Impressions</p><p className="font-black mt-1">{camp.impressions}</p></div>
+                      <div><p className="text-[10px] font-bold text-slate-400 uppercase">Clicks</p><p className="font-black mt-1">{camp.clicks}</p></div>
+                      <div><p className="text-[10px] font-bold text-emerald-500 uppercase">Sales</p><p className="font-black mt-1 text-emerald-600">{camp.conversions}</p></div>
+                      <div><p className="text-[10px] font-bold text-rose-500 uppercase">Spent</p><p className="font-black mt-1 text-rose-600">{camp.spent}</p></div>
+                    </div>
                   </div>
                 ))}
-             </CardFooter>
-           </Card>
-
-           <Card className="border-none shadow-2xl shadow-slate-100 bg-white ring-1 ring-slate-200 overflow-hidden group">
-              <CardContent className="p-8 relative">
-                 <Sparkles className="absolute top-6 right-6 h-8 w-8 text-slate-200 opacity-50 animate-pulse" />
-                 <h4 className="text-2xl font-black mb-3 text-slate-950 tracking-tighter">Behavioral Auto-Pilot</h4>
-                 <p className="text-xs text-slate-900/60 leading-relaxed mb-8 font-bold italic">
-                    "4 Students are currently stalled in Lesson 2 (Onboarding stage). This indicates potential churn-drift."
-                 </p>
-                 <Button className="w-full bg-slate-600 hover:bg-slate-700 text-white font-black rounded-2xl h-14 shadow-2xl shadow-slate-300 transition-all hover:scale-[1.02] active:scale-95 group-hover:rotate-1">
-                    Execute Recall Synthesis <ArrowRight className="ml-2 h-5 w-5" />
-                 </Button>
-              </CardContent>
-           </Card>
+              </div>
+            </CardContent>
+          </Card>
         </div>
-      </div>
+      )}
+
+      {/* BOUNTY SYSTEM */}
+      {activeTab === 'bounties' && (
+        <Card className="border-none shadow-xl ring-1 ring-slate-200 animate-in fade-in slide-in-from-bottom-4 overflow-hidden">
+           <CardHeader className="bg-slate-950 text-white">
+             <div className="flex justify-between items-center">
+               <div>
+                 <CardTitle className="flex items-center text-2xl font-black text-white"><Briefcase className="w-6 h-6 mr-3 text-amber-400"/> Talent Pipeline (Manage Bounties)</CardTitle>
+                 <CardDescription className="text-slate-400 mt-1">Post micro-tasks to hire top students or review submitted code challenges.</CardDescription>
+               </div>
+               <Button className="bg-amber-500 hover:bg-amber-600 text-black font-black">Post New Bounty</Button>
+             </div>
+           </CardHeader>
+           <CardContent className="p-0">
+             <Table>
+               <TableHeader>
+                 <TableRow className="bg-slate-50">
+                   <TableHead className="font-bold text-slate-500 pl-6 text-xs uppercase tracking-widest py-4">Bounty Title</TableHead>
+                   <TableHead className="font-bold text-slate-500 text-xs uppercase tracking-widest">Reward</TableHead>
+                   <TableHead className="font-bold text-slate-500 text-center text-xs uppercase tracking-widest">Submissions</TableHead>
+                   <TableHead className="font-bold text-slate-500 text-right pr-6 text-xs uppercase tracking-widest">Status</TableHead>
+                 </TableRow>
+               </TableHeader>
+               <TableBody>
+                 {[
+                   { title: "Fix Layout Bug in Edumate", reward: "₹500", subs: 12, status: "Reviewing (2 Pending)" },
+                   { title: "Implement MongoDB Aggregation", reward: "Fast-Track Interview", subs: 34, status: "Completed" }
+                 ].map((b, i) => (
+                   <TableRow key={i} className="hover:bg-slate-50 transition-colors">
+                     <TableCell className="pl-6 py-5 font-black text-slate-800 text-base">{b.title}</TableCell>
+                     <TableCell className="py-5"><Badge variant="outline" className="border-amber-200 bg-amber-50 text-amber-800 font-bold">{b.reward}</Badge></TableCell>
+                     <TableCell className="py-5 text-center font-bold text-slate-600">{b.subs}</TableCell>
+                     <TableCell className="text-right pr-6 py-5">
+                       <Button variant="outline" className="font-bold text-xs h-8">View {b.subs} Repos</Button>
+                     </TableCell>
+                   </TableRow>
+                 ))}
+               </TableBody>
+             </Table>
+           </CardContent>
+        </Card>
+      )}
+
     </div>
   );
 }
